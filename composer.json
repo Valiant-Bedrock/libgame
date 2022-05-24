@@ -2,6 +2,7 @@
     "name": "valient-bedrock/libgame",
     "description": "A PocketMine-MP game library meant to simplify the process of creating gamemodes",
     "type": "library",
+    "version": "0.1.0",
     "autoload": {
         "psr-4": {
             "libgame\\": "src/libgame"
