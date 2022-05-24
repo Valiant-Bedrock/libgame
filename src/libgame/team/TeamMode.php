@@ -41,6 +41,18 @@ class TeamMode {
 		);
 	}
 
+	/**
+	 * This static method is used to create a custom team mode
+	 *
+	 * @param string $name
+	 * @param string $formattedName
+	 * @param int $maxPlayerCount
+	 * @return TeamMode
+	 */
+	public static function custom(string $name, string $formattedName, int $maxPlayerCount): TeamMode {
+		return new TeamMode($name, $formattedName, $maxPlayerCount);
+	}
+
 	public function __construct(
 		string $name,
 		protected string $formattedName,

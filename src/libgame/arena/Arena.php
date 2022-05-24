@@ -17,10 +17,20 @@ use pocketmine\world\World;
 
 class Arena {
 
+	protected bool $occupied = false;
+
 	public function __construct(protected World $world) {}
 
 	public function getWorld(): World {
 		return $this->world;
+	}
+
+	public function isOccupied(): bool {
+		return $this->occupied;
+	}
+
+	public function setOccupied(bool $occupied): void {
+		$this->occupied = $occupied;
 	}
 
 }

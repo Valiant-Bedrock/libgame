@@ -30,4 +30,5 @@ class GameState {
 		self::register(new GameState("in_game"));
 		self::register(new GameState("postgame"));
 	}
+
 }
