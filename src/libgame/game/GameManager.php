@@ -18,4 +18,41 @@ class GameManager {
 	/** @var array<Game> */
 	protected array $games = [];
 
+	/**
+	 * Adds a game to the manager.
+	 *
+	 * @param Game $game
+	 * @return void
+	 */
+	public function add(Game $game) {
+		$this->games[$game->getUniqueId()] = $game;
+	}
+
+	/**
+	 * Removes a game from the manager
+	 *
+	 * @param Game $game
+	 * @return void
+	 */
+	public function remove(Game $game) {
+		unset($this->games[$game->getUniqueId()]);
+	}
+
+	/**
+	 * Attempts to get a game by its unique id.
+	 *
+	 * @param string $uniqueId
+	 * @return Game|null
+	 */
+	public function get(string $uniqueId) : ?Game {
+		return $this->games[$uniqueId] ?? null;
+	}
+
+	/**
+	 * @return array<Game>
+	 */
+	public function getAll() : array {
+		return $this->games;
+	}
+
 }
