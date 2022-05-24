@@ -11,9 +11,7 @@
  */
 declare(strict_types=1);
 
-namespace libgame;
-
-use libgame\game\Game;
+namespace libgame\game;
 
 class GameManager {
 

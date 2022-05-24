@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace libgame\game;
 
-use libgame\arena\Arena;
+use libgame\Arena;
 use libgame\event\GameStateChangeEvent;
 use libgame\scoreboard\ScoreboardManager;
 use libgame\team\TeamManager;
