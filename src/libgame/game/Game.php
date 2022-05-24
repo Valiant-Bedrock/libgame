@@ -34,7 +34,7 @@ abstract class Game {
 	protected DeployableClosure $heartbeat;
 
 	protected GameState $state;
-	/** @var array<GameStateHandler<static>> */
+	/** @var array<GameStateHandler> */
 	protected array $stateHandlers = [];
 	protected int $currentStateTime = 0;
 
@@ -166,21 +166,18 @@ abstract class Game {
 	 * Returns the state handler for the passed state.
 	 *
 	 * @param GameState $state
-	 * @return GameStateHandler<static>
+	 * @return GameStateHandler
 	 */
 	protected function getStateHandler(GameState $state): GameStateHandler {
 		return $this->stateHandlers[$state->id()] ?? throw new AssumptionFailedError("No handler for state {$state->name()}");
 	}
 
-	/**
-	 * @return GameStateHandler<static>
-	 */
 	protected function getCurrentStateHandler(): GameStateHandler {
 		return $this->getStateHandler($this->state);
 	}
 
 	/**
-	 * @return array<GameStateHandler<static>>
+	 * @return array<GameStateHandler>
 	 */
 	protected function getStateHandlers(): array {
 		return $this->stateHandlers;
@@ -190,7 +187,7 @@ abstract class Game {
 	 * This abstract method is the game state handler behind the game state {@link GameState::WAITING()}.
 	 *
 	 * @param Game $game
-	 * @return GameStateHandler<static>
+	 * @return GameStateHandler
 	 */
 	public abstract function setupWaitingStateHandler(Game $game): GameStateHandler;
 
@@ -198,7 +195,7 @@ abstract class Game {
 	 * This abstract method is the game state handler behind the game state {@link GameState::COUNTDOWN()}.
 	 *
 	 * @param Game $game
-	 * @return GameStateHandler<static>
+	 * @return GameStateHandler
 	 */
 	public abstract function setupCountdownStateHandler(Game $game): GameStateHandler;
 
@@ -206,7 +203,7 @@ abstract class Game {
 	 * This abstract method is the game state handler behind the game state {@link GameState::IN_GAME()}.
 	 *
 	 * @param Game $game
-	 * @return GameStateHandler<static>
+	 * @return GameStateHandler
 	 */
 	public abstract function setupInGameStateHandler(Game $game): GameStateHandler;
 
@@ -214,7 +211,7 @@ abstract class Game {
 	 * This abstract method is the game state handler behind the game state {@link GameState::POSTGAME()}.
 	 *
 	 * @param Game $game
-	 * @return GameStateHandler<static>
+	 * @return GameStateHandler
 	 */
 	public abstract function setupPostGameStateHandler(Game $game): GameStateHandler;
 

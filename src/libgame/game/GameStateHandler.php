@@ -16,27 +16,12 @@ namespace libgame\game;
 /**
  * This class is the logic behind each game state and should be setup when overriding the `Game` class.
  *
- * @template T of Game
  */
 abstract class GameStateHandler {
+	use GameTrait;
 
-	/**
-	 * @param T $game
-	 */
-	public function __construct(protected Game $game) {}
-
-	/**
-	 * @return T
-	 */
-	public function getGame(): Game {
-		return $this->game;
-	}
-
-	/**
-	 * @param T $game
-	 */
-	public function setGame(Game $game): void {
-		$this->game = $game;
+	public function __construct(Game $game) {
+		$this->setGame($game);
 	}
 
 	/**

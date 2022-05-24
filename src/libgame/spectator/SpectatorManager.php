@@ -20,6 +20,7 @@ use pocketmine\player\Player;
 class SpectatorManager {
 	use GameTrait;
 
+
 	/** @var array<string, bool> */
 	protected array $spectators = [];
 
