@@ -13,15 +13,19 @@ declare(strict_types=1);
 
 namespace libgame;
 
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\world\World;
+use libgame\game\GameManager;
+use pocketmine\plugin\PluginBase;
 
-class Arena {
+class GameBase extends PluginBase {
 
-	public function __construct(protected World $world, protected AxisAlignedBB $alignedBB) {}
+	protected GameManager $gameManager;
 
-	public function getWorld(): World {
-		return $this->world;
+	protected function onLoad(): void {
+		$this->gameManager = new GameManager($this);
+	}
+
+	public function getGameManager(): GameManager {
+		return $this->gameManager;
 	}
 
 }

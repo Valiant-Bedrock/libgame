@@ -13,10 +13,18 @@ declare(strict_types=1);
 
 namespace libgame\game;
 
+use libgame\GameBase;
+use libgame\utilities\GameBaseTrait;
+
 class GameManager {
+	use GameBaseTrait;
 
 	/** @var array<Game> */
 	protected array $games = [];
+
+	public function __construct(GameBase $plugin) {
+		$this->setPlugin($plugin);
+	}
 
 	/**
 	 * Adds a game to the manager.
@@ -24,7 +32,7 @@ class GameManager {
 	 * @param Game $game
 	 * @return void
 	 */
-	public function add(Game $game) {
+	public function add(Game $game): void {
 		$this->games[$game->getUniqueId()] = $game;
 	}
 
@@ -34,7 +42,7 @@ class GameManager {
 	 * @param Game $game
 	 * @return void
 	 */
-	public function remove(Game $game) {
+	public function remove(Game $game): void {
 		unset($this->games[$game->getUniqueId()]);
 	}
 
@@ -51,7 +59,7 @@ class GameManager {
 	/**
 	 * @return array<Game>
 	 */
-	public function getAll() : array {
+	public function getAll(): array {
 		return $this->games;
 	}
 

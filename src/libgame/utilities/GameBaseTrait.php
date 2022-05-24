@@ -11,17 +11,20 @@
  */
 declare(strict_types=1);
 
-namespace libgame;
+namespace libgame\utilities;
 
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\world\World;
+use libgame\GameBase;
 
-class Arena {
+trait GameBaseTrait {
 
-	public function __construct(protected World $world, protected AxisAlignedBB $alignedBB) {}
+	protected GameBase $plugin;
 
-	public function getWorld(): World {
-		return $this->world;
+	public function getPlugin(): GameBase {
+		return $this->plugin;
+	}
+
+	public function setPlugin(GameBase $plugin): void {
+		$this->plugin = $plugin;
 	}
 
 }
