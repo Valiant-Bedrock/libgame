@@ -1,5 +1,5 @@
 {
-    "name": "valient-bedrock/libgame",
+    "name": "valiant-bedrock/libgame",
     "description": "A PocketMine-MP game library meant to simplify the process of creating gamemodes",
     "type": "library",
     "version": "0.1.0",
