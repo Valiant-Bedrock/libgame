@@ -67,10 +67,6 @@ abstract class Game {
 	{
 		$this->setPlugin($plugin);
 		$this->heartbeat = new DeployableClosure(Closure::fromCallable([$this, "tick"]), $plugin->getScheduler());
-		// Sets the initial state
-		$this->state = GameState::WAITING();
-		$this->setState(GameState::WAITING());
-
 		// Setups the state handlers
 		$this->stateHandlers = [
 			GameState::WAITING()->id() => $this->setupWaitingStateHandler($this),
@@ -78,6 +74,9 @@ abstract class Game {
 			GameState::IN_GAME()->id() => $this->setupInGameStateHandler($this),
 			GameState::POSTGAME()->id() => $this->setupPostGameStateHandler($this),
 		];
+		// Sets the initial state
+		$this->state = GameState::WAITING();
+		$this->setState(GameState::WAITING());
 
 		$this->scoreboardManager = new ScoreboardManager(game: $this, title: $title);
 		$this->spectatorManager = new SpectatorManager(game: $this);
