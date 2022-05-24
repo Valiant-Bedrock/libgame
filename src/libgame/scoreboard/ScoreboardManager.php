@@ -65,7 +65,6 @@ class ScoreboardManager implements Updatable {
 			if(!$scoreboard->isVisible()) {
 				$scoreboard->send();
 			}
-
 			$scoreboard->update();
 		}
 	}
