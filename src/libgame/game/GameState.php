@@ -31,4 +31,13 @@ class GameState {
 		self::register(new GameState("postgame"));
 	}
 
+	public function getNextState(): ?GameState {
+		return match($this->id()) {
+			GameState::WAITING()->id() => GameState::COUNTDOWN(),
+			GameState::COUNTDOWN()->id() => GameState::IN_GAME(),
+			GameState::IN_GAME()->id() => GameState::POSTGAME(),
+			default => null
+		};
+	}
+
 }

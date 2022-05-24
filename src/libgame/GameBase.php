@@ -16,7 +16,11 @@ namespace libgame;
 use libgame\game\GameManager;
 use pocketmine\plugin\PluginBase;
 
-class GameBase extends PluginBase {
+/**
+ * This abstract class is the base plugin class for all gamemodes.
+ *
+ */
+abstract class GameBase extends PluginBase {
 
 	protected GameManager $gameManager;
 

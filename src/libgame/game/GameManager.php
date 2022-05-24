@@ -19,7 +19,7 @@ use libgame\utilities\GameBaseTrait;
 class GameManager {
 	use GameBaseTrait;
 
-	/** @var array<Game> */
+	/** @var array<string, Game> */
 	protected array $games = [];
 
 	public function __construct(GameBase $plugin) {
@@ -57,10 +57,20 @@ class GameManager {
 	}
 
 	/**
-	 * @return array<Game>
+	 * @return array<string, Game>
 	 */
 	public function getAll(): array {
 		return $this->games;
+	}
+
+	/**
+	 * @return array<Game>
+	 */
+	public function getFreeGames(): array {
+		return array_filter(
+			array: $this->getAll(),
+			callback: fn(Game $game) => $game->getState()->equals(GameState::WAITING())
+		);
 	}
 
 }
