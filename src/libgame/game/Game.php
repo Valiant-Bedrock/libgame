@@ -19,10 +19,12 @@ use libgame\event\GameStateChangeEvent;
 use libgame\GameBase;
 use libgame\scoreboard\ScoreboardManager;
 use libgame\spectator\SpectatorManager;
+use libgame\team\Team;
 use libgame\team\TeamManager;
 use libgame\team\TeamMode;
 use libgame\utilities\DeployableClosure;
 use libgame\utilities\GameBaseTrait;
+use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
 
@@ -43,7 +45,7 @@ abstract class Game {
 	/**
 	 *  A list of players that are unassociated with a team. This is used only before a game starts.
 	 *
-	 * @var array<string>
+	 * @var array<string, bool>
 	 */
 	protected array $unassociatedPlayers = [];
 	protected TeamManager $teamManager;
@@ -157,6 +159,7 @@ abstract class Game {
 	public function tick(): void {
 		$this->scoreboardManager->update();
 		$this->getCurrentStateHandler()->handleTick($this->currentStateTime);
+		$this->currentStateTime++;
 	}
 
 	/**
@@ -211,5 +214,96 @@ abstract class Game {
 	 * @return GameStateHandler
 	 */
 	public abstract function setupPostGameStateHandler(Game $game): GameStateHandler;
+
+	public function isUnassociatedPlayer(Player $player): bool {
+		return isset($this->unassociatedPlayers[$player->getUniqueId()->getBytes()]);
+	}
+
+	public function addUnassociatedPlayer(Player $player): void {
+		$this->unassociatedPlayers[$player->getUniqueId()->getBytes()] = true;
+	}
+
+	public function removeUnassociatedPlayer(Player $player): void {
+		unset($this->unassociatedPlayers[$player->getUniqueId()->getBytes()]);
+	}
+
+	/**
+	 * @return array<Player>
+	 */
+	public function getUnassociatedPlayers(): array {
+		return array_filter(
+			array_map(
+				callback: fn(string $uniqueId) => $this->getServer()->getPlayerByRawUUID($uniqueId),
+				array: array_keys($this->unassociatedPlayers)
+			)
+		);
+	}
+
+	/**
+	 * This method returns true if the player is involved in the game in any manner.
+	 *
+	 * @param Player $player
+	 * @return bool
+	 */
+	public function isInGame(Player $player): bool {
+		return $this->getSpectatorManager()->isSpectator($player) || $this->getTeamManager()->hasTeam($player) || $this->isUnassociatedPlayer($player);
+	}
+
+	/**
+	 * This method is called when a player requests to join the game.
+	 *
+	 * @param Player $player
+	 * @return void
+	 */
+	public abstract function handleJoin(Player $player): void;
+
+	/**
+	 * This method is called whenever a player requests to leave a game / quits the server.
+	 *
+	 * @param Player $player
+	 * @return void
+	 */
+	public abstract function handleQuit(Player $player): void;
+
+	/**
+	 * @param Closure(Player): void $closure
+	 * @return void
+	 */
+	public function executeOnAll(Closure $closure): void {
+		$all = array_filter(array: $this->getServer()->getOnlinePlayers(), callback: fn(Player $player): bool => $this->isInGame($player));
+		foreach ($all as $player) {
+			$closure($player);
+		}
+	}
+
+	/**
+	 * @param Closure(Team): void $closure
+	 * @return void
+	 */
+	public function executeOnTeams(Closure $closure): void {
+		foreach ($this->getTeamManager()->getAll() as $team) {
+			$closure($team);
+		}
+	}
+
+	/**
+	 * @param Closure(Player): void $closure
+	 * @return void
+	 */
+	public function executeOnPlayers(Closure $closure) {
+		foreach($this->getTeamManager()->getAll() as $team) {
+			$team->executeOnPlayers($closure);
+		}
+	}
+
+	/**
+	 * @param Closure(Player): void $closure
+	 * @return void
+	 */
+	public function executeOnSpectators(Closure $closure): void {
+		foreach ($this->getSpectatorManager()->getAll() as $player) {
+			$closure($player);
+		}
+	}
 
 }
