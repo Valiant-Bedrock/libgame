@@ -26,7 +26,7 @@ class GameState {
 
 	protected static function setup(): void {
 		self::register(new GameState("waiting"));
-		self::register(new GameState("setup"));
+		self::register(new GameState("starting"));
 		self::register(new GameState("in_game"));
 		self::register(new GameState("postgame"));
 	}
