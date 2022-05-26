@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace libgame\menu;
 
+use pocketmine\event\player\PlayerItemUseEvent;
 use pocketmine\item\Item;
 use pocketmine\player\Player;
 
@@ -46,6 +47,23 @@ class HotbarMenu {
 	 */
 	public function send(Player $player): void {
 		$player->getInventory()->setContents($this->getItems());
+	}
+
+	/**
+	 * Checks if a clicked item matches a menu entry and runs it if possible
+	 *
+	 * @param PlayerItemUseEvent $event
+	 * @return void
+	 */
+	public function checkAndCallItem(PlayerItemUseEvent $event): void {
+		$player = $event->getPlayer();
+		$item = $event->getItem();
+		foreach($this->menuEntries as $entry) {
+			if($entry->getItem()->equalsExact($item)) {
+				$entry->run($player);
+				return;
+			}
+		}
 	}
 
 }
