@@ -9,6 +9,7 @@
         }
     },
     "require": {
+        "sylvrs/libmarshal": ">=1.4.3",
         "valiant-bedrock/libscoreboard": ">=0.5.0"
     },
     "require-dev": {
