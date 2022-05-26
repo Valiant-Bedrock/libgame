@@ -35,6 +35,24 @@ class TeamState {
 		);
 	}
 
+	/**
+	 * This method gets the state of a player in the team.
+	 *
+	 * @param Player $player
+	 * @return MemberState|null
+	 */
+	public function getState(Player $player): ?MemberState {
+		return $this->memberStates[$player->getId()] ?? null;
+
+	}
+
+	/**
+	 * This method sets the state of a player in the team.
+	 *
+	 * @param Player|string $player
+	 * @param MemberState $state
+	 * @return void
+	 */
 	public function setState(Player|string $player, MemberState $state): void {
 		$uuid = $player instanceof Player ? $player->getUniqueId()->getBytes() : $player;
 
@@ -44,6 +62,9 @@ class TeamState {
 		$this->memberStates[$uuid] = $state;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isAlive(): bool {
 		foreach($this->memberStates as $state) {
 			if($state->equals(MemberState::DEAD())) {

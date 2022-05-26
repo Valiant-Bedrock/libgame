@@ -105,8 +105,20 @@ class TeamManager
 	public function getAliveTeams(): array {
 		return array_filter(
 			array: $this->getAll(),
-			callback: fn(Team $team) => $this->states[$team->getId()]->isAlive()
+			callback: fn(Team $team) => $this->getTeamState($team)->isAlive()
 		);
+	}
+
+	public function getTeamState(Team $team): TeamState {
+		return $this->states[$team->getId()];
+	}
+
+	public function getPlayerState(Player $player): ?MemberState {
+		$team = $this->getTeam($player);
+		if($team === null) {
+			return null;
+		}
+		return $this->getTeamState($team)->getState($player);
 	}
 
 	public function setPlayerState(Player $player, MemberState $state): void {
