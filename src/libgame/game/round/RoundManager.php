@@ -114,6 +114,11 @@ abstract class RoundManager {
 		$this->scores[$team->getId()] = $score;
 	}
 
+	public function getRoundWinner(): ?Team {
+		$aliveTeams = $this->getGame()->getTeamManager()->getAliveTeams();
+		return count($aliveTeams) === 1 ? $aliveTeams[array_key_first($aliveTeams)] : null;
+	}
+
 	/**
 	 * Returns the number of rounds that can be played
 	 *
