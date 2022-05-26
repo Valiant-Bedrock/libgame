@@ -13,12 +13,19 @@ declare(strict_types=1);
 
 namespace libgame;
 
-use pocketmine\math\AxisAlignedBB;
 use pocketmine\world\World;
 
-class Arena {
+abstract class Arena {
 
-	public function __construct(protected World $world, protected AxisAlignedBB $alignedBB) {}
+	public function __construct(protected World $world) {}
+
+	public function load(): void {
+
+	}
+
+	public function save(): void {
+
+	}
 
 	public function getWorld(): World {
 		return $this->world;
