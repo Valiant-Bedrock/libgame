@@ -15,6 +15,8 @@ namespace libgame\game;
 
 use libgame\GameBase;
 use libgame\utilities\GameBaseTrait;
+use pocketmine\player\Player;
+use pocketmine\world\World;
 
 class GameManager {
 	use GameBaseTrait;
@@ -71,6 +73,36 @@ class GameManager {
 			array: $this->getAll(),
 			callback: fn(Game $game) => $game->getState()->equals(GameState::WAITING())
 		);
+	}
+
+	/**
+	 * Attempts to get the game by the player.
+	 *
+	 * @param Player $player
+	 * @return Game|null
+	 */
+	public function getGameByPlayer(Player $player): ?Game {
+		foreach($this->getAll() as $game) {
+			if($game->isInGame($player)) {
+				return $game;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Attempts to get the game by the world it is in.
+	 *
+	 * @param World $world
+	 * @return Game|null
+	 */
+	public function getGameByWorld(World $world): ?Game {
+		foreach($this->getAll() as $game) {
+			if($game->getArena()->getWorld() === $world) {
+				return $game;
+			}
+		}
+		return null;
 	}
 
 }
