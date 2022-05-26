@@ -14,20 +14,13 @@ declare(strict_types=1);
 namespace libgame\event;
 
 use libgame\game\Game;
-use libgame\game\GameState;
+use libgame\game\GameTrait;
+use pocketmine\event\Event;
 
-class GameStateChangeEvent extends GameEvent {
+abstract class GameEvent extends Event {
+	use GameTrait;
 
-	public function __construct(Game $game, protected GameState $oldState, protected GameState $newState) {
-		parent::__construct($game);
+	public function __construct(Game $game) {
+		$this->setGame($game);
 	}
-
-	public function getOldState(): GameState {
-		return $this->oldState;
-	}
-
-	public function getNewState(): GameState {
-		return $this->newState;
-	}
-
 }

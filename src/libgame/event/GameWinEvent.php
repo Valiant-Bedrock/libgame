@@ -14,20 +14,20 @@ declare(strict_types=1);
 namespace libgame\event;
 
 use libgame\game\Game;
-use libgame\game\GameState;
+use libgame\team\Team;
 
-class GameStateChangeEvent extends GameEvent {
+class GameWinEvent extends GameEvent {
 
-	public function __construct(Game $game, protected GameState $oldState, protected GameState $newState) {
+	public function __construct(Game $game, protected ?Team $winner) {
 		parent::__construct($game);
 	}
 
-	public function getOldState(): GameState {
-		return $this->oldState;
+	public function getWinner(): ?Team {
+		return $this->winner;
 	}
 
-	public function getNewState(): GameState {
-		return $this->newState;
+	public function setWinner(?Team $winner): void {
+		$this->winner = $winner;
 	}
 
 }
