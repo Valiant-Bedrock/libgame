@@ -144,10 +144,10 @@ abstract class Game {
 		$currentStateHandler = $this->getStateHandler($this->state);
 		$currentStateHandler->handleFinish();
 
+		$this->state = $state;
 		// Grabs the new state handler and sets it up
 		$newStateHandler = $this->getStateHandler($state);
 		$newStateHandler->handleSetup();
-		$this->state = $state;
 		$this->currentStateTime = 0;
 	}
 
