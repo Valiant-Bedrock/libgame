@@ -27,6 +27,8 @@ use libgame\utilities\GameBaseTrait;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
+use pocketmine\utils\TextFormat;
+use pocketmine\world\sound\Sound;
 
 abstract class Game {
 	use GameBaseTrait;
@@ -90,7 +92,16 @@ abstract class Game {
 	}
 
 	/**
-	 * This method is a simple getter to reduce extraneous call chaining (e.g., $this->getPlugin()->getServer()->getX()).
+	 * Returns a prefix that can supersede message broadcasts.
+	 *
+	 * @return string
+	 */
+	public function getPrefix(): string {
+		return TextFormat::MINECOIN_GOLD . "Game > ";
+	}
+
+	/**
+	 * A simple getter to reduce extraneous call chaining (e.g., $this->getPlugin()->getServer()->getX()).
 	 *
 	 * @return Server
 	 */
@@ -137,6 +148,7 @@ abstract class Game {
 		$newStateHandler = $this->getStateHandler($state);
 		$newStateHandler->handleSetup();
 		$this->state = $state;
+		$this->currentStateTime = 0;
 	}
 
 	public function getScoreboardManager(): ScoreboardManager {
@@ -305,5 +317,62 @@ abstract class Game {
 			$closure($player);
 		}
 	}
+
+	/**
+	 * Broadcasts a message to all players in the game.
+	 *
+	 * @param string $message
+	 * @param bool $prependPrefix
+	 * @return void
+	 */
+	public function broadcastMessage(string $message, bool $prependPrefix = true): void {
+		if($prependPrefix) $message = $this->getPrefix() . TextFormat::RESET . TextFormat::WHITE . $message;
+		$this->executeOnAll(function(Player $player) use ($message): void {
+			$player->sendMessage($message);
+		});
+	}
+
+	/**
+	 * Broadcasts a tip to all players in the game.
+	 *
+	 * @param string $tip
+	 * @return void
+	 */
+	public function broadcastTip(string $tip): void {
+		$this->executeOnAll(function(Player $player) use ($tip): void {
+			$player->sendTip($tip);
+		});
+	}
+
+	/**
+	 * Broadcasts a tip to all players in the game.
+	 *
+	 * @param string $popup
+	 * @return void
+	 */
+	public function broadcastPopup(string $popup): void {
+		$this->executeOnAll(function(Player $player) use ($popup): void {
+			$player->sendPopup($popup);
+		});
+	}
+
+	/**
+	 * Broadcasts a sound to all players in the game
+	 *
+	 * @param Sound $sound
+	 * @return void
+	 */
+	public function broadcastSound(Sound $sound): void {
+		$this->executeOnAll(function (Player $player) use($sound): void {
+			$player->getWorld()->addSound($player->getPosition(), $sound, [$player]);
+		});
+	}
+
+	/**
+	 * This method is called when a game is over and needs to be cleaned up.
+	 *
+	 * @return void
+	 */
+	public abstract function finish(): void;
 
 }
