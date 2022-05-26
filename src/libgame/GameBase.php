@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace libgame;
 
+use libgame\arena\ArenaManager;
 use libgame\game\GameManager;
 use pocketmine\plugin\PluginBase;
 
@@ -22,14 +23,18 @@ use pocketmine\plugin\PluginBase;
  */
 abstract class GameBase extends PluginBase {
 
+	protected ArenaManager $arenaManager;
 	protected GameManager $gameManager;
 
 	protected function onLoad(): void {
+		$this->arenaManager = $this->setupArenaManager();
 		$this->gameManager = new GameManager($this);
 	}
 
 	public function getGameManager(): GameManager {
 		return $this->gameManager;
 	}
+
+	protected abstract function setupArenaManager(): ArenaManager;
 
 }

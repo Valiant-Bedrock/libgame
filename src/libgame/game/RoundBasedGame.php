@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace libgame\game;
 
-use libgame\Arena;
+use libgame\arena\Arena;
 use libgame\game\round\RoundManager;
 use libgame\GameBase;
 use libgame\team\TeamMode;

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace libgame\game;
 
 use Closure;
-use libgame\Arena;
+use libgame\arena\Arena;
 use libgame\event\GameStateChangeEvent;
 use libgame\GameBase;
 use libgame\scoreboard\ScoreboardManager;
@@ -74,7 +74,7 @@ abstract class Game {
 		// Setups the state handlers
 		$this->stateHandlers = [
 			GameState::WAITING()->id() => $this->setupWaitingStateHandler($this),
-			GameState::COUNTDOWN()->id() => $this->setupCountdownStateHandler($this),
+			GameState::STARTING()->id() => $this->setupStartingStateHandler($this),
 			GameState::IN_GAME()->id() => $this->setupInGameStateHandler($this),
 			GameState::POSTGAME()->id() => $this->setupPostGameStateHandler($this),
 		];
@@ -209,7 +209,7 @@ abstract class Game {
 	 * @param Game $game
 	 * @return GameStateHandler
 	 */
-	public abstract function setupCountdownStateHandler(Game $game): GameStateHandler;
+	public abstract function setupStartingStateHandler(Game $game): GameStateHandler;
 
 	/**
 	 * This abstract method is the game state handler behind the game state {@link GameState::IN_GAME()}.

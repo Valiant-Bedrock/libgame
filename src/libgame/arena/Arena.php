@@ -11,21 +11,13 @@
  */
 declare(strict_types=1);
 
-namespace libgame;
+namespace libgame\arena;
 
 use pocketmine\world\World;
 
 abstract class Arena {
 
 	public function __construct(protected World $world) {}
-
-	public function load(): void {
-
-	}
-
-	public function save(): void {
-
-	}
 
 	public function getWorld(): World {
 		return $this->world;
