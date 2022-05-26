@@ -22,11 +22,19 @@ class Kit {
 	use MarshalTrait;
 
 	/**
+	 * @param string $name
 	 * @param array<Armor> $armor
 	 * @param array<Item> $items
 	 */
-	public function __construct(protected array $armor, protected array $items) {
+	public function __construct(
+		protected string $name,
+		protected array $armor,
+		protected array $items
+	) {
+	}
 
+	public function getName(): string {
+		return $this->name;
 	}
 
 	/**
