@@ -98,5 +98,5 @@ abstract class EventHandler implements Listener {
 	 * @param Event $event
 	 * @return bool
 	 */
-	public abstract function shouldHandle(Event $event): bool;
+	protected abstract function shouldHandle(Event $event): bool;
 }
