@@ -60,6 +60,7 @@ abstract class EventHandler implements Listener {
 				handleCancelled: boolval($parsed[ListenerMethodTags::HANDLE_CANCELLED] ?? false)
 			);
 		}
+		$this->registered = true;
 	}
 
 	/**
@@ -72,6 +73,7 @@ abstract class EventHandler implements Listener {
 			throw new RuntimeException("Event handler is not registered");
 		}
 		HandlerListManager::global()->unregisterAll($this);
+		$this->registered = false;
 	}
 
 	/**
