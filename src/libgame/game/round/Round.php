@@ -24,6 +24,13 @@ class Round {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getTime(): int {
+		return $this->time;
+	}
+
+	/**
 	 * Increments the current time by 1.
 	 *
 	 * @return void
