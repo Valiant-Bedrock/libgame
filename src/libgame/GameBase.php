@@ -37,4 +37,8 @@ abstract class GameBase extends PluginBase {
 
 	protected abstract function setupArenaManager(): ArenaManager;
 
+	public function getArenaManager(): ArenaManager {
+		return $this->arenaManager;
+	}
+
 }
