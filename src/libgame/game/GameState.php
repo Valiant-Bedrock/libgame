@@ -17,7 +17,7 @@ use pocketmine\utils\EnumTrait;
 
 /**
  * @method static GameState WAITING()
- * @method static GameState COUNTDOWN()
+ * @method static GameState STARTING()
  * @method static GameState IN_GAME()
  * @method static GameState POSTGAME()
  */
@@ -26,15 +26,15 @@ class GameState {
 
 	protected static function setup(): void {
 		self::register(new GameState("waiting"));
-		self::register(new GameState("countdown"));
+		self::register(new GameState("setup"));
 		self::register(new GameState("in_game"));
 		self::register(new GameState("postgame"));
 	}
 
 	public function getNextState(): ?GameState {
 		return match($this->id()) {
-			GameState::WAITING()->id() => GameState::COUNTDOWN(),
-			GameState::COUNTDOWN()->id() => GameState::IN_GAME(),
+			GameState::WAITING()->id() => GameState::STARTING(),
+			GameState::STARTING()->id() => GameState::IN_GAME(),
 			GameState::IN_GAME()->id() => GameState::POSTGAME(),
 			default => null
 		};
