@@ -53,12 +53,16 @@ class TeamMode {
 		return new TeamMode($name, $formattedName, $maxPlayerCount);
 	}
 
+	/** @var array<string, TeamMode> */
+	protected static array $formattedNameMappings = [];
+
 	public function __construct(
 		string $name,
 		protected string $formattedName,
 		protected int $maxPlayerCount
 	) {
 		$this->EnumTrait__construct($name);
+		self::$formattedNameMappings[strtolower($formattedName)] = $this;
 	}
 
 	public function getFormattedName(): string {
@@ -67,5 +71,9 @@ class TeamMode {
 
 	public function getMaxPlayerCount(): int {
 		return $this->maxPlayerCount;
+	}
+
+	public static function fromString(string $name): TeamMode {
+		return self::$formattedNameMappings[strtolower($name)];
 	}
 }
