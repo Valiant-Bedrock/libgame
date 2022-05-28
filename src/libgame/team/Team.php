@@ -57,6 +57,10 @@ class Team
 		return $this->color;
 	}
 
+	public function setColor(string $color): void {
+		$this->color = $color;
+	}
+
 	public function getFormattedName(): string {
 		return $this->color . $this->__toString();
 	}
