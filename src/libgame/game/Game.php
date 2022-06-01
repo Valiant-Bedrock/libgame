@@ -29,9 +29,12 @@ use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\sound\Sound;
+use PrefixedLogger;
 
 abstract class Game {
 	use GameBaseTrait;
+
+	protected PrefixedLogger $logger;
 
 	protected DeployableClosure $heartbeat;
 
@@ -70,6 +73,7 @@ abstract class Game {
 	)
 	{
 		$this->setPlugin($plugin);
+		$this->logger = new PrefixedLogger(delegate: $plugin->getLogger(), prefix: "Game $this->uniqueId");
 		$this->heartbeat = new DeployableClosure(Closure::fromCallable([$this, "tick"]), $plugin->getScheduler());
 		// Setups the state handlers
 		$this->stateHandlers = [
@@ -89,6 +93,10 @@ abstract class Game {
 
 
 		$this->heartbeat->deploy(period: $this->heartbeatPeriod);
+	}
+
+	public function getLogger(): PrefixedLogger {
+		return $this->logger;
 	}
 
 	/**
