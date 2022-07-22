@@ -60,8 +60,8 @@ class ScoreboardManager implements Updatable {
 	}
 
 	public function update(): void {
-		foreach($this->getAll() as $scoreboard) {
-			if(!$scoreboard->isVisible()) {
+		foreach ($this->getAll() as $scoreboard) {
+			if (!$scoreboard->isVisible()) {
 				$scoreboard->send();
 			}
 

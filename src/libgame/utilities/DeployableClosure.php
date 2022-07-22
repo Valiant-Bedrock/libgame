@@ -33,7 +33,7 @@ class DeployableClosure {
 	 * This method will schedule the closure with the provided arguments
 	 */
 	public function deploy(int $period, int $delay = -1): void {
-		if($this->currentHandler !== null) {
+		if ($this->currentHandler !== null) {
 			throw new RuntimeException("Closure has already been deployed");
 		}
 		$task = new ClosureTask($this->closure);
@@ -49,7 +49,7 @@ class DeployableClosure {
 	 * This method will cancel the closure
 	 */
 	public function cancel(): void {
-		if($this->currentHandler === null) {
+		if ($this->currentHandler === null) {
 			throw new RuntimeException("Cannot cancel a task that has not been deployed");
 		}
 		$this->currentHandler->cancel();

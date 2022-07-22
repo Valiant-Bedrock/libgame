@@ -31,7 +31,7 @@ class GameState {
 	}
 
 	public function getNextState(): ?GameState {
-		return match($this->id()) {
+		return match ($this->id()) {
 			GameState::WAITING()->id() => GameState::STARTING(),
 			GameState::STARTING()->id() => GameState::IN_GAME(),
 			GameState::IN_GAME()->id() => GameState::POSTGAME(),

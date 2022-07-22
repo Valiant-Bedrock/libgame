@@ -70,8 +70,8 @@ class GameManager {
 	 * Attempts to get the game by the player.
 	 */
 	public function getGameByPlayer(Player $player): ?Game {
-		foreach($this->getAll() as $game) {
-			if($game->isInGame($player)) {
+		foreach ($this->getAll() as $game) {
+			if ($game->isInGame($player)) {
 				return $game;
 			}
 		}
@@ -82,8 +82,8 @@ class GameManager {
 	 * Attempts to get the game by the world it is in.
 	 */
 	public function getGameByWorld(World $world): ?Game {
-		foreach($this->getAll() as $game) {
-			if($game->getArena()->getWorld() === $world) {
+		foreach ($this->getAll() as $game) {
+			if ($game->getArena()->getWorld() === $world) {
 				return $game;
 			}
 		}

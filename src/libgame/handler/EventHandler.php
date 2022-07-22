@@ -40,17 +40,17 @@ abstract class EventHandler implements Listener {
 	 * This method gets a list of all compatible events and registers the corresponding event handlers.
 	 */
 	public function register(GameBase $plugin): void {
-		if($this->registered) {
+		if ($this->registered) {
 			throw new RuntimeException("Event handler is already registered");
 		}
 
 		$pluginManager = $plugin->getServer()->getPluginManager();
-		foreach($this->getHandledEvents() as $handled) {
+		foreach ($this->getHandledEvents() as $handled) {
 			$parsed = ($comment = $handled->method->getDocComment()) !== false ? Utils::parseDocComment($comment) : [];
 			$pluginManager->registerEvent(
 				event: $handled->eventClass,
-				handler: function(Event $event) use($handled): void {
-					if($this->shouldHandle($event)) {
+				handler: function (Event $event) use ($handled): void {
+					if ($this->shouldHandle($event)) {
 						$handled->method->invoke($this, $event);
 					}
 				},
@@ -66,7 +66,7 @@ abstract class EventHandler implements Listener {
 	 * Unregisters the event handler from the global manager.
 	 */
 	public function unregister(): void {
-		if(!$this->registered) {
+		if (!$this->registered) {
 			throw new RuntimeException("Event handler is not registered");
 		}
 		HandlerListManager::global()->unregisterAll($this);
@@ -79,9 +79,9 @@ abstract class EventHandler implements Listener {
 	private function getHandledEvents(): array {
 		return array_filter(
 			array: array_map(
-				callback: function(ReflectionMethod $method): ?HandledEvent {
+				callback: function (ReflectionMethod $method): ?HandledEvent {
 					$parameter = $method->getParameters()[array_key_first($method->getParameters())] ?? null;
-					if($parameter instanceof ReflectionParameter && ($type = $parameter->getType()) instanceof ReflectionNamedType && is_a(object_or_class: $type->getName(), class: Event::class, allow_string: true)) {
+					if ($parameter instanceof ReflectionParameter && ($type = $parameter->getType()) instanceof ReflectionNamedType && is_a(object_or_class: $type->getName(), class: Event::class, allow_string: true)) {
 						return new HandledEvent(eventClass: $type->getName(), method: $method);
 					}
 					return null;

@@ -75,8 +75,8 @@ class TeamManager
 	}
 
 	public function hasTeam(Player $player): bool {
-		foreach($this->getAll() as $team) {
-			if($team->isMember($player)) {
+		foreach ($this->getAll() as $team) {
+			if ($team->isMember($player)) {
 				return true;
 			}
 		}
@@ -84,8 +84,8 @@ class TeamManager
 	}
 
 	public function getTeam(Player $player): ?Team {
-		foreach($this->getAll() as $team) {
-			if($team->isMember($player)) {
+		foreach ($this->getAll() as $team) {
+			if ($team->isMember($player)) {
 				return $team;
 			}
 		}
@@ -108,7 +108,7 @@ class TeamManager
 
 	public function getPlayerState(Player $player): ?MemberState {
 		$team = $this->getTeam($player);
-		if($team === null) {
+		if ($team === null) {
 			return null;
 		}
 		return $this->getTeamState($team)->getState($player);
@@ -116,7 +116,7 @@ class TeamManager
 
 	public function setPlayerState(Player $player, MemberState $state): void {
 		$team = $this->getTeam($player);
-		if($team === null) {
+		if ($team === null) {
 			return;
 		}
 		$this->states[$team->getId()]->setState($player, $state);

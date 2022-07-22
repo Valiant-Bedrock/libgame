@@ -59,7 +59,7 @@ abstract class ArenaManager {
 	 * Sets an arena's occupied status.
 	 */
 	public function setOccupied(Arena $arena, bool $occupied): void {
-		if($occupied) {
+		if ($occupied) {
 			$this->occupied[spl_object_id($arena)] = true;
 		} else {
 			unset($this->occupied[spl_object_id($arena)]);
@@ -70,8 +70,8 @@ abstract class ArenaManager {
 	 * Attempts to find an open arena.
 	 */
 	public function findOpenArena(): ?Arena {
-		foreach($this->arenas as $arena) {
-			if(!$this->isOccupied($arena)) {
+		foreach ($this->arenas as $arena) {
+			if (!$this->isOccupied($arena)) {
 				return $arena;
 			}
 		}

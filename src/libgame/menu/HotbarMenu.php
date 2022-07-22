@@ -54,8 +54,8 @@ class HotbarMenu {
 	public function checkAndCallItem(PlayerItemUseEvent $event): void {
 		$player = $event->getPlayer();
 		$item = $event->getItem();
-		foreach($this->menuEntries as $entry) {
-			if($entry->getItem()->equalsExact($item)) {
+		foreach ($this->menuEntries as $entry) {
+			if ($entry->getItem()->equalsExact($item)) {
 				$entry->run($player);
 				return;
 			}

@@ -116,23 +116,23 @@ class Team
 	 * @param Closure(Player): void $callback
 	 */
 	public function executeOnPlayers(Closure $callback): void {
-		foreach($this->getOnlineMembers() as $player) {
+		foreach ($this->getOnlineMembers() as $player) {
 			$callback($player);
 		}
 	}
 
 	public function broadcastMessage(string $message, bool $prependPrefix = true): void {
-		if($prependPrefix) {
+		if ($prependPrefix) {
 			$message = self::PREFIX . $message;
 		}
 
-		$this->executeOnPlayers(function(Player $player) use($message): void {
+		$this->executeOnPlayers(function (Player $player) use ($message): void {
 			$player->sendMessage($message);
 		});
 	}
 
 	public function broadcastTip(string $tip): void {
-		$this->executeOnPlayers(function(Player $player) use($tip): void {
+		$this->executeOnPlayers(function (Player $player) use ($tip): void {
 			$player->sendTip($tip);
 		});
 	}

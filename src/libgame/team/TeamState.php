@@ -49,15 +49,15 @@ class TeamState {
 	public function setState(Player|string $player, MemberState $state): void {
 		$uuid = $player instanceof Player ? $player->getUniqueId()->getBytes() : $player;
 
-		if(!isset($this->memberStates[$uuid])) {
+		if (!isset($this->memberStates[$uuid])) {
 			throw new InvalidArgumentException("UUID $uuid is not in team $this->teamId");
 		}
 		$this->memberStates[$uuid] = $state;
 	}
 
 	public function isAlive(): bool {
-		foreach($this->memberStates as $state) {
-			if($state->equals(MemberState::DEAD())) {
+		foreach ($this->memberStates as $state) {
+			if ($state->equals(MemberState::DEAD())) {
 				return false;
 			}
 		}

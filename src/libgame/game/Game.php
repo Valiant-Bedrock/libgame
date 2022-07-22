@@ -277,7 +277,7 @@ abstract class Game {
 	 * @return void
 	 */
 	public function executeOnPlayers(Closure $closure) {
-		foreach($this->getTeamManager()->getAll() as $team) {
+		foreach ($this->getTeamManager()->getAll() as $team) {
 			$team->executeOnPlayers($closure);
 		}
 	}
@@ -295,8 +295,8 @@ abstract class Game {
 	 * Broadcasts a message to all players in the game.
 	 */
 	public function broadcastMessage(string $message, bool $prependPrefix = true): void {
-		if($prependPrefix) $message = $this->getPrefix() . TextFormat::RESET . TextFormat::WHITE . $message;
-		$this->executeOnAll(function(Player $player) use ($message): void {
+		if ($prependPrefix) $message = $this->getPrefix() . TextFormat::RESET . TextFormat::WHITE . $message;
+		$this->executeOnAll(function (Player $player) use ($message): void {
 			$player->sendMessage($message);
 		});
 	}
@@ -305,7 +305,7 @@ abstract class Game {
 	 * Broadcasts a tip to all players in the game.
 	 */
 	public function broadcastTip(string $tip): void {
-		$this->executeOnAll(function(Player $player) use ($tip): void {
+		$this->executeOnAll(function (Player $player) use ($tip): void {
 			$player->sendTip($tip);
 		});
 	}
@@ -314,7 +314,7 @@ abstract class Game {
 	 * Broadcasts a tip to all players in the game.
 	 */
 	public function broadcastPopup(string $popup): void {
-		$this->executeOnAll(function(Player $player) use ($popup): void {
+		$this->executeOnAll(function (Player $player) use ($popup): void {
 			$player->sendPopup($popup);
 		});
 	}
@@ -323,7 +323,7 @@ abstract class Game {
 	 * Broadcasts a sound to all players in the game
 	 */
 	public function broadcastSound(Sound $sound): void {
-		$this->executeOnAll(function (Player $player) use($sound): void {
+		$this->executeOnAll(function (Player $player) use ($sound): void {
 			$player->getWorld()->addSound($player->getPosition(), $sound, [$player]);
 		});
 	}
