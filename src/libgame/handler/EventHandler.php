@@ -33,9 +33,7 @@ use function is_a;
 
 abstract class EventHandler implements Listener {
 
-	/**
-	 * This flag is used to determine if the event handler is registered
-	 */
+	/** This flag is used to determine if the event handler is registered */
 	private bool $registered = false;
 
 	/**

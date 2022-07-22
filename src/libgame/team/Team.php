@@ -99,7 +99,6 @@ class Team
 	}
 
 	/**
-	 *
 	 * @return array<string,Player|OfflinePlayer>
 	 */
 	public function getMembers(): array {
