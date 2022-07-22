@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -13,6 +12,8 @@ declare(strict_types=1);
 
 namespace libgame\game\round;
 
+use function gmdate;
+
 class Round {
 
 	public function __construct(protected int $number, protected int $time = 0) {
@@ -23,17 +24,12 @@ class Round {
 		return $this->number;
 	}
 
-	/**
-	 * @return int
-	 */
 	public function getTime(): int {
 		return $this->time;
 	}
 
 	/**
 	 * Increments the current time by 1.
-	 *
-	 * @return void
 	 */
 	public function incrementTime(): void {
 		$this->time++;
@@ -41,8 +37,6 @@ class Round {
 
 	/**
 	 * Formats the round time into a minutes:seconds format.
-	 *
-	 * @return string
 	 */
 	public function formatTime(): string {
 		return gmdate("i:s", $this->time);

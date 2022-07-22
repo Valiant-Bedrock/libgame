@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -16,6 +15,9 @@ namespace libgame\menu;
 use pocketmine\event\player\PlayerItemUseEvent;
 use pocketmine\item\Item;
 use pocketmine\player\Player;
+use function array_combine;
+use function array_keys;
+use function array_map;
 
 class HotbarMenu {
 
@@ -41,9 +43,6 @@ class HotbarMenu {
 
 	/**
 	 * Sends the item contents to the player
-	 *
-	 * @param Player $player
-	 * @return void
 	 */
 	public function send(Player $player): void {
 		$player->getInventory()->setContents($this->getItems());
@@ -51,9 +50,6 @@ class HotbarMenu {
 
 	/**
 	 * Checks if a clicked item matches a menu entry and runs it if possible
-	 *
-	 * @param PlayerItemUseEvent $event
-	 * @return void
 	 */
 	public function checkAndCallItem(PlayerItemUseEvent $event): void {
 		$player = $event->getPlayer();

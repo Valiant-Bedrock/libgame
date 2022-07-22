@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -25,7 +24,6 @@ class DeployableClosure {
 
 	/**
 	 * @param Closure(): void $closure
-	 * @param TaskScheduler $scheduler
 	 */
 	public function __construct(protected Closure $closure, protected TaskScheduler $scheduler)
 	{
@@ -33,10 +31,6 @@ class DeployableClosure {
 
 	/**
 	 * This method will schedule the closure with the provided arguments
-	 *
-	 * @param int $period
-	 * @param int $delay
-	 * @return void
 	 */
 	public function deploy(int $period, int $delay = -1): void {
 		if($this->currentHandler !== null) {
@@ -53,8 +47,6 @@ class DeployableClosure {
 
 	/**
 	 * This method will cancel the closure
-	 *
-	 * @return void
 	 */
 	public function cancel(): void {
 		if($this->currentHandler === null) {

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -17,8 +16,6 @@ interface Updatable {
 
 	/**
 	 * This method should be called whenever the object needs/wants to be updated.
-	 *
-	 * @return void
 	 */
 	public function update(): void;
 

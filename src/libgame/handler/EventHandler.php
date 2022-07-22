@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -25,20 +24,22 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 use RuntimeException;
+use function array_filter;
+use function array_key_first;
+use function array_map;
+use function boolval;
+use function intval;
+use function is_a;
 
 abstract class EventHandler implements Listener {
 
 	/**
 	 * This flag is used to determine if the event handler is registered
-	 * @var bool
 	 */
 	private bool $registered = false;
 
 	/**
 	 * This method gets a list of all compatible events and registers the corresponding event handlers.
-	 *
-	 * @param GameBase $plugin
-	 * @return void
 	 */
 	public function register(GameBase $plugin): void {
 		if($this->registered) {
@@ -65,8 +66,6 @@ abstract class EventHandler implements Listener {
 
 	/**
 	 * Unregisters the event handler from the global manager.
-	 *
-	 * @return void
 	 */
 	public function unregister(): void {
 		if(!$this->registered) {
@@ -96,9 +95,6 @@ abstract class EventHandler implements Listener {
 
 	/**
 	 * This method determines if the event should be handled by this handler.
-	 *
-	 * @param Event $event
-	 * @return bool
 	 */
 	protected abstract function shouldHandle(Event $event): bool;
 }

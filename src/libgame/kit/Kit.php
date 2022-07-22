@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -22,7 +21,6 @@ class Kit {
 	use MarshalTrait;
 
 	/**
-	 * @param string $name
 	 * @param array<Armor> $armor
 	 * @param array<Item> $items
 	 */
@@ -51,12 +49,8 @@ class Kit {
 		return $this->items;
 	}
 
-
 	/**
 	 * Gives a player the items associated with this kit.
-	 *
-	 * @param Player $player
-	 * @return void
 	 */
 	public function give(Player $player): void {
 		$player->getArmorInventory()->setContents($this->getArmor());

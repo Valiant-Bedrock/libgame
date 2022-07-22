@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -17,6 +16,7 @@ use libgame\GameBase;
 use libgame\utilities\GameBaseTrait;
 use pocketmine\player\Player;
 use pocketmine\world\World;
+use function array_filter;
 
 class GameManager {
 	use GameBaseTrait;
@@ -30,9 +30,6 @@ class GameManager {
 
 	/**
 	 * Adds a game to the manager.
-	 *
-	 * @param Game $game
-	 * @return void
 	 */
 	public function add(Game $game): void {
 		$this->games[$game->getUniqueId()] = $game;
@@ -40,9 +37,6 @@ class GameManager {
 
 	/**
 	 * Removes a game from the manager
-	 *
-	 * @param Game $game
-	 * @return void
 	 */
 	public function remove(Game $game): void {
 		unset($this->games[$game->getUniqueId()]);
@@ -50,9 +44,6 @@ class GameManager {
 
 	/**
 	 * Attempts to get a game by its unique id.
-	 *
-	 * @param string $uniqueId
-	 * @return Game|null
 	 */
 	public function get(string $uniqueId) : ?Game {
 		return $this->games[$uniqueId] ?? null;
@@ -77,9 +68,6 @@ class GameManager {
 
 	/**
 	 * Attempts to get the game by the player.
-	 *
-	 * @param Player $player
-	 * @return Game|null
 	 */
 	public function getGameByPlayer(Player $player): ?Game {
 		foreach($this->getAll() as $game) {
@@ -92,9 +80,6 @@ class GameManager {
 
 	/**
 	 * Attempts to get the game by the world it is in.
-	 *
-	 * @param World $world
-	 * @return Game|null
 	 */
 	public function getGameByWorld(World $world): ?Game {
 		foreach($this->getAll() as $game) {

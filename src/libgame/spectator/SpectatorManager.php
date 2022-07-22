@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -16,10 +15,12 @@ namespace libgame\spectator;
 use libgame\game\Game;
 use libgame\game\GameTrait;
 use pocketmine\player\Player;
+use function array_filter;
+use function array_keys;
+use function array_map;
 
 class SpectatorManager {
 	use GameTrait;
-
 
 	/** @var array<string, bool> */
 	protected array $spectators = [];

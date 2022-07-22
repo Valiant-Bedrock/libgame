@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -19,6 +18,11 @@ use pocketmine\player\OfflinePlayer;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
+use function array_combine;
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
 
 class Team
 {
@@ -95,7 +99,6 @@ class Team
 	}
 
 	/**
-	 * @noinspection PhpDocSignatureInspection - PHPStorm isn't smart enough to understand the return type
 	 *
 	 * @return array<string,Player|OfflinePlayer>
 	 */
@@ -112,7 +115,6 @@ class Team
 
 	/**
 	 * @param Closure(Player): void $callback
-	 * @return void
 	 */
 	public function executeOnPlayers(Closure $callback): void {
 		foreach($this->getOnlineMembers() as $player) {

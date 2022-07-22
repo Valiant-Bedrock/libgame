@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -17,16 +16,10 @@ trait GameTrait {
 
 	protected Game $game;
 
-	/**
-	 * @return Game
-	 */
 	public function getGame(): Game {
 		return $this->game;
 	}
 
-	/**
-	 * @param Game $game
-	 */
 	public function setGame(Game $game): void {
 		$this->game = $game;
 	}

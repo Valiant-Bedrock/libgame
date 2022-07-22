@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -14,6 +13,7 @@ declare(strict_types=1);
 namespace libgame\utilities;
 
 use pocketmine\utils\TextFormat;
+use function array_rand;
 
 class Utilities {
 
@@ -33,12 +33,9 @@ class Utilities {
 		TextFormat::MINECOIN_GOLD
 	];
 
-
 	/**
 	 * This method pulls a random color from a list of whitelisted colors.
 	 * This is primarily used for choosing team colors, but can be used for other purposes.
-	 *
-	 * @return string
 	 */
 	public static function getRandomColor(): string {
 		return self::$WHITELISTED_COLORS[array_rand(self::$WHITELISTED_COLORS)];

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -16,11 +15,12 @@ namespace libgame\team;
 use InvalidArgumentException;
 use libgame\team\member\MemberState;
 use pocketmine\player\Player;
+use function array_fill_keys;
+use function array_keys;
 
 class TeamState {
 
 	/**
-	 * @param int $teamId
 	 * @param array<MemberState> $memberStates
 	 */
 	public function __construct(protected int $teamId, protected array $memberStates) {}
@@ -37,9 +37,6 @@ class TeamState {
 
 	/**
 	 * This method gets the state of a player in the team.
-	 *
-	 * @param Player $player
-	 * @return MemberState|null
 	 */
 	public function getState(Player $player): ?MemberState {
 		return $this->memberStates[$player->getId()] ?? null;
@@ -48,10 +45,6 @@ class TeamState {
 
 	/**
 	 * This method sets the state of a player in the team.
-	 *
-	 * @param Player|string $player
-	 * @param MemberState $state
-	 * @return void
 	 */
 	public function setState(Player|string $player, MemberState $state): void {
 		$uuid = $player instanceof Player ? $player->getUniqueId()->getBytes() : $player;
@@ -62,9 +55,6 @@ class TeamState {
 		$this->memberStates[$uuid] = $state;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function isAlive(): bool {
 		foreach($this->memberStates as $state) {
 			if($state->equals(MemberState::DEAD())) {

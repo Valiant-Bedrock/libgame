@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -30,6 +29,9 @@ use pocketmine\utils\AssumptionFailedError;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\sound\Sound;
 use PrefixedLogger;
+use function array_filter;
+use function array_keys;
+use function array_map;
 
 abstract class Game {
 	use GameBaseTrait;
@@ -91,7 +93,6 @@ abstract class Game {
 
 		$this->teamManager = new TeamManager(game: $this, mode: $teamMode);
 
-
 		$this->heartbeat->deploy(period: $this->heartbeatPeriod);
 	}
 
@@ -101,8 +102,6 @@ abstract class Game {
 
 	/**
 	 * Returns a prefix that can supersede message broadcasts.
-	 *
-	 * @return string
 	 */
 	public function getPrefix(): string {
 		return TextFormat::MINECOIN_GOLD . "Game > ";
@@ -110,8 +109,6 @@ abstract class Game {
 
 	/**
 	 * A simple getter to reduce extraneous call chaining (e.g., $this->getPlugin()->getServer()->getX()).
-	 *
-	 * @return Server
 	 */
 	public function getServer(): Server {
 		return $this->getPlugin()->getServer();
@@ -137,9 +134,6 @@ abstract class Game {
 		return $this->state;
 	}
 
-	/**
-	 * @param GameState $state
-	 */
 	public function setState(GameState $state): void {
 		$event = new GameStateChangeEvent(
 			game: $this,
@@ -173,8 +167,6 @@ abstract class Game {
 
 	/**
 	 * This method is the main update loop for the game.
-	 *
-	 * @return void
 	 */
 	public function tick(): void {
 		$this->scoreboardManager->update();
@@ -184,9 +176,6 @@ abstract class Game {
 
 	/**
 	 * Returns the state handler for the passed state.
-	 *
-	 * @param GameState $state
-	 * @return GameStateHandler
 	 */
 	protected function getStateHandler(GameState $state): GameStateHandler {
 		return $this->stateHandlers[$state->id()] ?? throw new AssumptionFailedError("No handler for state {$state->name()}");
@@ -205,33 +194,21 @@ abstract class Game {
 
 	/**
 	 * This abstract method is the game state handler behind the game state {@link GameState::WAITING()}.
-	 *
-	 * @param Game $game
-	 * @return GameStateHandler
 	 */
 	public abstract function setupWaitingStateHandler(Game $game): GameStateHandler;
 
 	/**
 	 * This abstract method is the game state handler behind the game state {@link GameState::COUNTDOWN()}.
-	 *
-	 * @param Game $game
-	 * @return GameStateHandler
 	 */
 	public abstract function setupStartingStateHandler(Game $game): GameStateHandler;
 
 	/**
 	 * This abstract method is the game state handler behind the game state {@link GameState::IN_GAME()}.
-	 *
-	 * @param Game $game
-	 * @return GameStateHandler
 	 */
 	public abstract function setupInGameStateHandler(Game $game): GameStateHandler;
 
 	/**
 	 * This abstract method is the game state handler behind the game state {@link GameState::POSTGAME()}.
-	 *
-	 * @param Game $game
-	 * @return GameStateHandler
 	 */
 	public abstract function setupPostGameStateHandler(Game $game): GameStateHandler;
 
@@ -261,9 +238,6 @@ abstract class Game {
 
 	/**
 	 * This method returns true if the player is involved in the game in any manner.
-	 *
-	 * @param Player $player
-	 * @return bool
 	 */
 	public function isInGame(Player $player): bool {
 		return $this->getSpectatorManager()->isSpectator($player) || $this->getTeamManager()->hasTeam($player) || $this->isUnassociatedPlayer($player);
@@ -271,23 +245,16 @@ abstract class Game {
 
 	/**
 	 * This method is called when a player requests to join the game.
-	 *
-	 * @param Player $player
-	 * @return void
 	 */
 	public abstract function handleJoin(Player $player): void;
 
 	/**
 	 * This method is called whenever a player requests to leave a game / quits the server.
-	 *
-	 * @param Player $player
-	 * @return void
 	 */
 	public abstract function handleQuit(Player $player): void;
 
 	/**
 	 * @param Closure(Player): void $closure
-	 * @return void
 	 */
 	public function executeOnAll(Closure $closure): void {
 		$all = array_filter(array: $this->getServer()->getOnlinePlayers(), callback: fn(Player $player): bool => $this->isInGame($player));
@@ -298,7 +265,6 @@ abstract class Game {
 
 	/**
 	 * @param Closure(Team): void $closure
-	 * @return void
 	 */
 	public function executeOnTeams(Closure $closure): void {
 		foreach ($this->getTeamManager()->getAll() as $team) {
@@ -318,7 +284,6 @@ abstract class Game {
 
 	/**
 	 * @param Closure(Player): void $closure
-	 * @return void
 	 */
 	public function executeOnSpectators(Closure $closure): void {
 		foreach ($this->getSpectatorManager()->getAll() as $player) {
@@ -328,10 +293,6 @@ abstract class Game {
 
 	/**
 	 * Broadcasts a message to all players in the game.
-	 *
-	 * @param string $message
-	 * @param bool $prependPrefix
-	 * @return void
 	 */
 	public function broadcastMessage(string $message, bool $prependPrefix = true): void {
 		if($prependPrefix) $message = $this->getPrefix() . TextFormat::RESET . TextFormat::WHITE . $message;
@@ -342,9 +303,6 @@ abstract class Game {
 
 	/**
 	 * Broadcasts a tip to all players in the game.
-	 *
-	 * @param string $tip
-	 * @return void
 	 */
 	public function broadcastTip(string $tip): void {
 		$this->executeOnAll(function(Player $player) use ($tip): void {
@@ -354,9 +312,6 @@ abstract class Game {
 
 	/**
 	 * Broadcasts a tip to all players in the game.
-	 *
-	 * @param string $popup
-	 * @return void
 	 */
 	public function broadcastPopup(string $popup): void {
 		$this->executeOnAll(function(Player $player) use ($popup): void {
@@ -366,9 +321,6 @@ abstract class Game {
 
 	/**
 	 * Broadcasts a sound to all players in the game
-	 *
-	 * @param Sound $sound
-	 * @return void
 	 */
 	public function broadcastSound(Sound $sound): void {
 		$this->executeOnAll(function (Player $player) use($sound): void {
@@ -378,8 +330,6 @@ abstract class Game {
 
 	/**
 	 * This method is called when a game is over and needs to be cleaned up.
-	 *
-	 * @return void
 	 */
 	public abstract function finish(): void;
 

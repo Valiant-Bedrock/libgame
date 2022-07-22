@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -18,6 +17,8 @@ use libgame\game\GameTrait;
 use libgame\team\member\MemberState;
 use libgame\utilities\Utilities;
 use pocketmine\player\Player;
+use function array_filter;
+use function array_merge;
 
 class TeamManager
 {
@@ -35,9 +36,6 @@ class TeamManager
 
 	/**
 	 * This method will return a team given its ID or null if the team isn't found.
-	 *
-	 * @param int $id
-	 * @return Team|null
 	 */
 	public function get(int $id): ?Team {
 		return $this->teams[$id] ?? null;
@@ -53,7 +51,6 @@ class TeamManager
 		unset($this->teams[$team->getId()]);
 		unset($this->states[$team->getId()]);
 	}
-
 
 	/**
 	 * @return array<int, Team>
@@ -86,10 +83,6 @@ class TeamManager
 		return false;
 	}
 
-	/**
-	 * @param Player $player
-	 * @return Team|null
-	 */
 	public function getTeam(Player $player): ?Team {
 		foreach($this->getAll() as $team) {
 			if($team->isMember($player)) {
@@ -143,10 +136,6 @@ class TeamManager
 
 	/**
 	 * This method checks if two players are on the same team.
-	 *
-	 * @param Player $firstPlayer
-	 * @param Player $secondPlayer
-	 * @return bool
 	 */
 	public function checkOnTeams(Player $firstPlayer, Player $secondPlayer): bool {
 		return $this->hasTeam($firstPlayer) && $this->hasTeam($secondPlayer) && $this->getTeam($firstPlayer) === $this->getTeam($secondPlayer);

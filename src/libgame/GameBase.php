@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -19,7 +18,6 @@ use pocketmine\plugin\PluginBase;
 
 /**
  * This abstract class is the base plugin class for all gamemodes.
- *
  */
 abstract class GameBase extends PluginBase {
 

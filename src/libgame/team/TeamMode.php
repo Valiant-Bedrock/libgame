@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (C) 2020 - 2022 | Matthew Jordan
  *
  * This program is private software. You may not redistribute this software, or
@@ -14,6 +13,7 @@ declare(strict_types=1);
 namespace libgame\team;
 
 use pocketmine\utils\EnumTrait;
+use function strtolower;
 
 /**
  * TeamMode is an enum class that represents available team modes (1, 2, 3, 4, 5, 10)
@@ -43,11 +43,6 @@ class TeamMode {
 
 	/**
 	 * This static method is used to create a custom team mode
-	 *
-	 * @param string $name
-	 * @param string $formattedName
-	 * @param int $maxPlayerCount
-	 * @return TeamMode
 	 */
 	public static function custom(string $name, string $formattedName, int $maxPlayerCount): TeamMode {
 		return new TeamMode($name, $formattedName, $maxPlayerCount);
