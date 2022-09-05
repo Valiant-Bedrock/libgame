@@ -14,7 +14,6 @@ namespace libgame\team;
 
 use Closure;
 use libgame\team\member\MemberData;
-use pocketmine\player\OfflinePlayer;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
@@ -94,7 +93,33 @@ class Team
 	}
 
 	public function isMember(Player $member): bool {
-		return isset($this->members[$member->getUniqueId()->getBytes()]);
+		return $this->isMemberByUUID($member->getUniqueId()->getBytes());
+	}
+
+	public function isMemberByUUID(string $uuid): bool {
+		return isset($this->members[$uuid]);
+	}
+
+	public function getMemberDataByUUID(string $uuid): ?MemberData  {
+		foreach ($this->members as $member) {
+			if ($member->uuid === $uuid) {
+				return $member;
+			}
+		}
+		return null;
+	}
+
+	public function isMemberByName(string $username): bool {
+		return $this->getMemberDataByName($username) !== null;
+	}
+
+	public function getMemberDataByName(string $username): ?MemberData  {
+		foreach ($this->members as $member) {
+			if ($member->username === $username) {
+				return $member;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -103,19 +128,19 @@ class Team
 	public function getOnlineMembers(): array {
 		return array_filter(
 			array: $this->getMembers(),
-			callback: fn(Player|OfflinePlayer $member): bool => $member instanceof Player && $member->isOnline()
+			callback: fn(Player|MemberData $member): bool => $member instanceof Player && $member->isOnline()
 		);
 	}
 
 	/**
-	 * @return array<string,Player|OfflinePlayer>
+	 * @return array<string,Player|MemberData>
 	 */
 	public function getMembers(): array {
 		$server = Server::getInstance();
 		return array_combine(
 			array_keys($this->members),
 			array_map(
-				callback: static fn(MemberData $memberData): Player|OfflinePlayer => $server->getPlayerByRawUUID($memberData->uuid) ?? new OfflinePlayer($memberData->username, null),
+				callback: static fn(MemberData $memberData): Player|MemberData => $server->getPlayerByRawUUID($memberData->uuid) ?? $memberData,
 				array: array_values($this->members)
 			)
 		);

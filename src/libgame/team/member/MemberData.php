@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace libgame\team\member;
 
+use pocketmine\player\Player;
+use pocketmine\Server;
+
 class MemberData {
 
 	public function __construct(
@@ -27,4 +30,7 @@ class MemberData {
 		return $this->uuid;
 	}
 
+	public function getPlayer(): ?Player {
+		return Server::getInstance()->getPlayerByRawUUID($this->uuid);
+	}
 }

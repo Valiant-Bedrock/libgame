@@ -39,20 +39,32 @@ class TeamState {
 	 * This method gets the state of a player in the team.
 	 */
 	public function getState(Player $player): ?MemberState {
-		return $this->memberStates[$player->getUniqueId()->toString()] ?? null;
+		return $this->memberStates[$player->getUniqueId()->getBytes()] ?? null;
 
 	}
 
 	/**
 	 * This method sets the state of a player in the team.
 	 */
-	public function setState(Player|string $player, MemberState $state): void {
-		$uuid = $player instanceof Player ? $player->getUniqueId()->getBytes() : $player;
+	public function setState(Player $player, MemberState $state): void {
+		$this->setStateByUUID($player->getUniqueId()->getBytes(), $state);
+	}
 
+	public function setStateByUUID(string $uuid, MemberState $state): void {
 		if (!isset($this->memberStates[$uuid])) {
 			throw new InvalidArgumentException("UUID $uuid is not in team $this->teamId");
 		}
 		$this->memberStates[$uuid] = $state;
+	}
+
+	public function removeState(Player $player): void {
+		$this->removeStateByUUID($player->getUniqueId()->getBytes());
+	}
+
+	public function removeStateByUUID(string $uuid): void {
+		if (isset($this->memberStates[$uuid])) {
+			unset($this->memberStates[$uuid]);
+		}
 	}
 
 	public function isAlive(): bool {

@@ -17,6 +17,7 @@ use libgame\game\GameTrait;
 use libgame\team\member\MemberState;
 use libgame\utilities\Utilities;
 use pocketmine\player\Player;
+use pocketmine\utils\AssumptionFailedError;
 use function array_filter;
 use function array_merge;
 
@@ -135,6 +136,32 @@ class TeamManager
 			return;
 		}
 		$this->states[$team->getId()]->setState($player, $state);
+	}
+
+	public function removePlayerFromTeam(Player $player): void {
+		if ($this->hasTeam($player)) {
+			$team = $this->getTeam($player) ?? throw new AssumptionFailedError("Team should exist");
+			$team->removeMember($player);
+			$this->getTeamState($team)->removeState($player);
+		}
+	}
+
+	public function removePlayerByUUID(string $uuid): void {
+		foreach ($this->getAll() as $team) {
+			if ($team->isMemberByUUID($uuid)) {
+				$team->removeMemberByUUID($uuid);
+				$this->getTeamState($team)->removeStateByUUID($uuid);
+			}
+		}
+	}
+
+	public function removePlayerByName(string $username): void {
+		foreach ($this->getAll() as $team) {
+			if (($data = $team->getMemberDataByName($username)) !== null) {
+				$team->removeMemberByUsername($username);
+				$this->getTeamState($team)->removeStateByUUID($data->uuid);
+			}
+		}
 	}
 
 	/**
