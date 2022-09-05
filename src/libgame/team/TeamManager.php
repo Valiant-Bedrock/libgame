@@ -102,6 +102,21 @@ class TeamManager
 		);
 	}
 
+	/**
+	 * @return array<Player>
+	 */
+	public function getAlivePlayers(): array {
+		$players = [];
+		foreach ($this->getAliveTeams() as $team) {
+			foreach ($team->getOnlineMembers() as $member) {
+				if ($this->getPlayerState($member) === MemberState::ALIVE()) {
+					$players[$member->getUniqueId()->toString()] = $member;
+				}
+			}
+		}
+		return $players;
+	}
+
 	public function getTeamState(Team $team): TeamState {
 		return $this->states[$team->getId()];
 	}
