@@ -84,6 +84,15 @@ class Team
 		unset($this->members[$uuid]);
 	}
 
+	public function removeMemberByUsername(string $username): void {
+		foreach ($this->members as $member) {
+			if ($member->username === $username) {
+				$this->removeMemberByUUID($member->uuid);
+				return;
+			}
+		}
+	}
+
 	public function isMember(Player $member): bool {
 		return isset($this->members[$member->getUniqueId()->getBytes()]);
 	}
