@@ -38,7 +38,7 @@ class TeamState {
 	/**
 	 * This method gets the state of a player in the team.
 	 */
-	public function getState(Player|string $player): ?MemberState {
+	public function getState(Player $player): ?MemberState {
 		return $this->memberStates[$player->getUniqueId()->toString()] ?? null;
 
 	}
