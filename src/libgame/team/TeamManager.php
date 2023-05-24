@@ -84,13 +84,17 @@ class TeamManager
 		return false;
 	}
 
-	public function getTeam(Player $player): ?Team {
+	public function getTeamNullable(Player $player): ?Team {
 		foreach ($this->getAll() as $team) {
 			if ($team->isMember($player)) {
 				return $team;
 			}
 		}
 		return null;
+	}
+
+	public function getTeam(Player $player): Team {
+		return $this->getTeamNullable($player) ?? throw new AssumptionFailedError("Player is not in a team");
 	}
 
 	/**
@@ -123,7 +127,7 @@ class TeamManager
 	}
 
 	public function getPlayerState(Player $player): ?MemberState {
-		$team = $this->getTeam($player);
+		$team = $this->getTeamNullable($player);
 		if ($team === null) {
 			return null;
 		}
@@ -131,7 +135,7 @@ class TeamManager
 	}
 
 	public function setPlayerState(Player $player, MemberState $state): void {
-		$team = $this->getTeam($player);
+		$team = $this->getTeamNullable($player);
 		if ($team === null) {
 			return;
 		}
@@ -140,7 +144,7 @@ class TeamManager
 
 	public function removePlayerFromTeam(Player $player): void {
 		if ($this->hasTeam($player)) {
-			$team = $this->getTeam($player) ?? throw new AssumptionFailedError("Team should exist");
+			$team = $this->getTeam($player);
 			$team->removeMember($player);
 			$this->getTeamState($team)->removeState($player);
 		}
