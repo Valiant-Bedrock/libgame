@@ -134,6 +134,14 @@ class TeamManager
 		return $this->getTeamState($team)->getState($player);
 	}
 
+	public function isAlive(Player $player): bool {
+		$team = $this->getTeamNullable($player);
+		if ($team === null) {
+			return false;
+		}
+		return $this->getTeamState($team)->getState($player) === MemberState::ALIVE();
+	}
+
 	public function setPlayerState(Player $player, MemberState $state): void {
 		$team = $this->getTeamNullable($player);
 		if ($team === null) {
