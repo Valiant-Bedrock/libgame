@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace libgame\team;
 
-use InvalidArgumentException;
 use libgame\team\member\MemberState;
 use pocketmine\player\Player;
 use function array_fill_keys;

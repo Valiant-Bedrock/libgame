@@ -52,7 +52,7 @@ class ScoreboardManager implements Updatable {
 	}
 
 	public function remove(Player $player): void {
-		if(($scoreboard = $this->get($player)) !== null) {
+		if (($scoreboard = $this->get($player)) !== null) {
 			$scoreboard->remove();
 			unset($this->scoreboards[$player->getUniqueId()->getBytes()]);
 		}
