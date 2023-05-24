@@ -8,7 +8,9 @@
             "libgame\\": "src/libgame"
         }
     },
+
     "require": {
+        "php": ">=8.1",
         "sylvrs/libmarshal": ">=1.4.3",
         "valiant-bedrock/libscoreboard": ">=0.5.0"
     },

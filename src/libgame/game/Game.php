@@ -76,7 +76,7 @@ abstract class Game {
 	{
 		$this->setPlugin($plugin);
 		$this->logger = new PrefixedLogger(delegate: $plugin->getLogger(), prefix: "Game $this->uniqueId");
-		$this->heartbeat = new DeployableClosure(Closure::fromCallable([$this, "tick"]), $plugin->getScheduler());
+		$this->heartbeat = new DeployableClosure($this->tick(...), $plugin->getScheduler());
 		// Setups the state handlers
 		$this->stateHandlers = [
 			GameState::WAITING()->id() => $this->setupWaitingStateHandler($this),
