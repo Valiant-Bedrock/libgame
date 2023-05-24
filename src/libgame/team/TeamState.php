@@ -66,11 +66,11 @@ class TeamState {
 
 	public function isAlive(): bool {
 		foreach ($this->memberStates as $state) {
-			if ($state->equals(MemberState::DEAD())) {
-				return false;
+			if ($state->equals(MemberState::ALIVE())) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 }
