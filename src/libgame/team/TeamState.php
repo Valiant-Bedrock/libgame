@@ -51,9 +51,6 @@ class TeamState {
 	}
 
 	public function setStateByUUID(string $uuid, MemberState $state): void {
-		if (!isset($this->memberStates[$uuid])) {
-			throw new InvalidArgumentException("UUID $uuid is not in team $this->teamId");
-		}
 		$this->memberStates[$uuid] = $state;
 	}
 
