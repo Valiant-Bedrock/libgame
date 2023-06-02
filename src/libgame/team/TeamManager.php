@@ -18,6 +18,7 @@ use libgame\team\member\MemberState;
 use libgame\utilities\Utilities;
 use pocketmine\player\Player;
 use pocketmine\utils\AssumptionFailedError;
+use Ramsey\Uuid\UuidInterface;
 use function array_filter;
 use function array_merge;
 
@@ -84,6 +85,15 @@ class TeamManager
 		return false;
 	}
 
+	public function hasTeamByUUID(UuidInterface $uuid): bool {
+		foreach ($this->getAll() as $team) {
+			if ($team->isMemberByUUID($uuid)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function getTeamNullable(Player $player): ?Team {
 		foreach ($this->getAll() as $team) {
 			if ($team->isMember($player)) {
@@ -93,8 +103,21 @@ class TeamManager
 		return null;
 	}
 
+	public function getTeamByUUIDNullable(UuidInterface $uuid): ?Team {
+		foreach ($this->getAll() as $team) {
+			if ($team->isMemberByUUID($uuid)) {
+				return $team;
+			}
+		}
+		return null;
+	}
+
 	public function getTeam(Player $player): Team {
 		return $this->getTeamNullable($player) ?? throw new AssumptionFailedError("Player is not in a team");
+	}
+
+	public function getTeamByUUID(UuidInterface $uuid): Team {
+		return $this->getTeamByUUIDNullable($uuid) ?? throw new AssumptionFailedError("Player is not in a team");
 	}
 
 	/**
@@ -134,6 +157,14 @@ class TeamManager
 		return $this->getTeamState($team)->getState($player);
 	}
 
+	public function getPlayerStateByUUID(UuidInterface $uuid): ?MemberState {
+		$team = $this->getTeamByUUIDNullable($uuid);
+		if ($team === null) {
+			return null;
+		}
+		return $this->getTeamState($team)->getStateByUUID($uuid);
+	}
+
 	public function isAlive(Player $player): bool {
 		$team = $this->getTeamNullable($player);
 		if ($team === null) {
@@ -158,7 +189,7 @@ class TeamManager
 		}
 	}
 
-	public function removePlayerByUUID(string $uuid): void {
+	public function removePlayerByUUID(UuidInterface $uuid): void {
 		foreach ($this->getAll() as $team) {
 			if ($team->isMemberByUUID($uuid)) {
 				$team->removeMemberByUUID($uuid);

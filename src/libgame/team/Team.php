@@ -17,6 +17,7 @@ use libgame\team\member\MemberData;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
+use Ramsey\Uuid\UuidInterface;
 use function array_combine;
 use function array_filter;
 use function array_keys;
@@ -27,19 +28,14 @@ class Team
 {
 	protected const PREFIX = TextFormat::YELLOW . "Team > ";
 
-	/** @var array<string,MemberData> */
+	/** @var array<string, MemberData> */
 	protected array $members = [];
 
 	/**
 	 * @param Player[] $members
 	 */
-	public function __construct(
-		protected int $id,
-		protected string $color,
-		array $members = []
-	) {
-		foreach ($members as $member)
-		{
+	public function __construct(protected int $id, protected string $color, array $members = []) {
+		foreach ($members as $member) {
 			$this->addMember($member);
 		}
 	}
@@ -71,7 +67,7 @@ class Team
 	public function addMember(Player $member): void {
 		$this->members[$member->getUniqueId()->getBytes()] = new MemberData(
 			username: $member->getName(),
-			uuid: $member->getUniqueId()->getBytes()
+			uuid: $member->getUniqueId()
 		);
 	}
 
@@ -79,8 +75,8 @@ class Team
 		unset($this->members[$member->getUniqueId()->getBytes()]);
 	}
 
-	public function removeMemberByUUID(string $uuid): void {
-		unset($this->members[$uuid]);
+	public function removeMemberByUUID(UuidInterface $uuid): void {
+		unset($this->members[$uuid->getBytes()]);
 	}
 
 	public function removeMemberByUsername(string $username): void {
@@ -93,14 +89,14 @@ class Team
 	}
 
 	public function isMember(Player $member): bool {
-		return $this->isMemberByUUID($member->getUniqueId()->getBytes());
+		return $this->isMemberByUUID($member->getUniqueId());
 	}
 
-	public function isMemberByUUID(string $uuid): bool {
-		return isset($this->members[$uuid]);
+	public function isMemberByUUID(UuidInterface $uuid): bool {
+		return isset($this->members[$uuid->getBytes()]);
 	}
 
-	public function getMemberDataByUUID(string $uuid): ?MemberData  {
+	public function getMemberDataByUUID(UuidInterface $uuid): ?MemberData  {
 		foreach ($this->members as $member) {
 			if ($member->uuid === $uuid) {
 				return $member;
@@ -140,7 +136,7 @@ class Team
 		return array_combine(
 			array_keys($this->members),
 			array_map(
-				callback: static fn(MemberData $memberData): Player|MemberData => $server->getPlayerByRawUUID($memberData->uuid) ?? $memberData,
+				callback: static fn(MemberData $memberData): Player|MemberData => $server->getPlayerByUUID($memberData->uuid) ?? $memberData,
 				array: array_values($this->members)
 			)
 		);

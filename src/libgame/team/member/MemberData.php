@@ -14,23 +14,24 @@ namespace libgame\team\member;
 
 use pocketmine\player\Player;
 use pocketmine\Server;
+use Ramsey\Uuid\UuidInterface;
 
 class MemberData {
 
 	public function __construct(
 		public string $username,
-		public string $uuid
+		public UuidInterface $uuid
 	) {}
 
 	public function getUsername(): string {
 		return $this->username;
 	}
 
-	public function getUuid(): string {
+	public function getUuid(): UuidInterface {
 		return $this->uuid;
 	}
 
 	public function getPlayer(): ?Player {
-		return Server::getInstance()->getPlayerByRawUUID($this->uuid);
+		return Server::getInstance()->getPlayerByUUID($this->uuid);
 	}
 }

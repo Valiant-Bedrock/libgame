@@ -14,6 +14,7 @@ namespace libgame\team;
 
 use libgame\team\member\MemberState;
 use pocketmine\player\Player;
+use Ramsey\Uuid\UuidInterface;
 use function array_fill_keys;
 use function array_keys;
 
@@ -38,29 +39,30 @@ class TeamState {
 	 * This method gets the state of a player in the team.
 	 */
 	public function getState(Player $player): ?MemberState {
-		return $this->memberStates[$player->getUniqueId()->getBytes()] ?? null;
+		return $this->getStateByUUID($player->getUniqueId());
+	}
 
+	public function getStateByUUID(UuidInterface $uuid): ?MemberState {
+		return $this->memberStates[$uuid->getBytes()] ?? null;
 	}
 
 	/**
 	 * This method sets the state of a player in the team.
 	 */
 	public function setState(Player $player, MemberState $state): void {
-		$this->setStateByUUID($player->getUniqueId()->getBytes(), $state);
+		$this->setStateByUUID($player->getUniqueId(), $state);
 	}
 
-	public function setStateByUUID(string $uuid, MemberState $state): void {
-		$this->memberStates[$uuid] = $state;
+	public function setStateByUUID(UuidInterface $uuid, MemberState $state): void {
+		$this->memberStates[$uuid->getBytes()] = $state;
 	}
 
 	public function removeState(Player $player): void {
-		$this->removeStateByUUID($player->getUniqueId()->getBytes());
+		$this->removeStateByUUID($player->getUniqueId());
 	}
 
-	public function removeStateByUUID(string $uuid): void {
-		if (isset($this->memberStates[$uuid])) {
-			unset($this->memberStates[$uuid]);
-		}
+	public function removeStateByUUID(UuidInterface $uuid): void {
+		unset($this->memberStates[$uuid->getBytes()]);
 	}
 
 	public function isAlive(): bool {
