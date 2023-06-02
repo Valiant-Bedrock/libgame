@@ -181,6 +181,14 @@ class TeamManager
 		$this->states[$team->getId()]->setState($player, $state);
 	}
 
+	public function setPlayerStateByUUID(UuidInterface $uuid, MemberState $state): void {
+		$team = $this->getTeamByUUIDNullable($uuid);
+		if ($team === null) {
+			return;
+		}
+		$this->states[$team->getId()]->setStateByUUID($uuid, $state);
+	}
+
 	public function removePlayerFromTeam(Player $player): void {
 		if ($this->hasTeam($player)) {
 			$team = $this->getTeam($player);
