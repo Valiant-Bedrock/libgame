@@ -52,6 +52,8 @@ class TeamManager
 	{
 		unset($this->teams[$team->getId()]);
 		unset($this->states[$team->getId()]);
+		// decrement team counter when a team is removed
+		$this->teamCounter--;
 	}
 
 	/**
