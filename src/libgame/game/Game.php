@@ -257,7 +257,7 @@ abstract class Game {
 	 * @param Closure(Player): void $closure
 	 */
 	public function executeOnAll(Closure $closure): void {
-		$all = array_filter(array: $this->getServer()->getOnlinePlayers(), callback: fn(Player $player): bool => $this->isInGame($player));
+		$all = array_filter(array: $this->getServer()->getOnlinePlayers(), callback: fn(Player $player): bool => $player->isConnected() && $this->isInGame($player));
 		foreach ($all as $player) {
 			$closure($player);
 		}
