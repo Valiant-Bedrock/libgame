@@ -59,7 +59,7 @@ class ScoreboardManager implements Updatable {
 	}
 
 	public function get(Player $player): ?Scoreboard {
-		return $this->scoreboards[$player->getUniqueId()->getBytes()];
+		return $this->scoreboards[$player->getUniqueId()->getBytes()] ?? null;
 	}
 
 	public function update(): void {
