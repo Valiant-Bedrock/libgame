@@ -18,7 +18,6 @@ use libgame\interfaces\Updatable;
 use libscoreboard\Scoreboard;
 use LogicException;
 use pocketmine\player\Player;
-use pocketmine\utils\AssumptionFailedError;
 
 class ScoreboardManager implements Updatable {
 	use GameTrait;
