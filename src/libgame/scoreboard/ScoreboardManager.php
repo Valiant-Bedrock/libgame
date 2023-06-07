@@ -16,7 +16,9 @@ use libgame\game\Game;
 use libgame\game\GameTrait;
 use libgame\interfaces\Updatable;
 use libscoreboard\Scoreboard;
+use LogicException;
 use pocketmine\player\Player;
+use pocketmine\utils\AssumptionFailedError;
 
 class ScoreboardManager implements Updatable {
 	use GameTrait;
@@ -52,14 +54,18 @@ class ScoreboardManager implements Updatable {
 	}
 
 	public function remove(Player $player): void {
-		if (($scoreboard = $this->get($player)) !== null) {
+		if (($scoreboard = $this->getNullable($player)) !== null) {
 			$scoreboard->remove();
 			unset($this->scoreboards[$player->getUniqueId()->getBytes()]);
 		}
 	}
 
-	public function get(Player $player): ?Scoreboard {
+	public function getNullable(Player $player): ?Scoreboard {
 		return $this->scoreboards[$player->getUniqueId()->getBytes()] ?? null;
+	}
+
+	public function get(Player $player): Scoreboard {
+		return $this->getNullable($player) ?? throw new LogicException("Unable to locate scoreboard for player {$player->getName()}");
 	}
 
 	public function update(): void {
