@@ -34,4 +34,8 @@ class MemberData {
 	public function getPlayer(): ?Player {
 		return Server::getInstance()->getPlayerByUUID($this->uuid);
 	}
+
+	public function isOnline(): bool {
+		return $this->getPlayer() !== null;
+	}
 }
