@@ -15,14 +15,12 @@ namespace libgame\team;
 use Closure;
 use libgame\team\member\MemberData;
 use pocketmine\player\Player;
-use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 use Ramsey\Uuid\UuidInterface;
 use function array_combine;
 use function array_filter;
 use function array_keys;
 use function array_map;
-use function array_values;
 
 class Team
 {
@@ -62,6 +60,13 @@ class Team
 
 	public function getFormattedName(): string {
 		return $this->color . $this->__toString();
+	}
+
+	/**
+	 * @return array<string, MemberData>
+	 */
+	public function getAllData(): array {
+		return $this->members;
 	}
 
 	public function addMember(Player $member): void {
@@ -129,15 +134,24 @@ class Team
 	}
 
 	/**
+	 * @return array<string, MemberData>
+	 */
+	public function getOfflineMembers(): array {
+		return array_filter(
+			array: $this->members,
+			callback: fn(MemberData $member): bool => !$member->isOnline()
+		);
+	}
+
+	/**
 	 * @return array<string,Player|MemberData>
 	 */
 	public function getMembers(): array {
-		$server = Server::getInstance();
 		return array_combine(
 			array_keys($this->members),
 			array_map(
-				callback: static fn(MemberData $memberData): Player|MemberData => $server->getPlayerByUUID($memberData->uuid) ?? $memberData,
-				array: array_values($this->members)
+				callback: static fn(MemberData $memberData): Player|MemberData => $memberData->getPlayer() ?? $memberData,
+				array: $this->members
 			)
 		);
 	}

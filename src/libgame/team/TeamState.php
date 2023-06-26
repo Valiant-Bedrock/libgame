@@ -17,6 +17,7 @@ use pocketmine\player\Player;
 use Ramsey\Uuid\UuidInterface;
 use function array_fill_keys;
 use function array_keys;
+use function in_array;
 
 class TeamState {
 
