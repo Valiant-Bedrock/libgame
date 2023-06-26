@@ -137,7 +137,7 @@ class TeamManager
 		$players = [];
 		foreach ($this->getAliveTeams() as $team) {
 			foreach ($team->getOnlineMembers() as $member) {
-				if ($this->getPlayerState($member) === MemberState::ALIVE()) {
+				if ($this->getPlayerState($member) === MemberState::ALIVE) {
 					$players[$member->getUniqueId()->toString()] = $member;
 				}
 			}
@@ -170,7 +170,7 @@ class TeamManager
 		if ($team === null) {
 			return false;
 		}
-		return $this->getTeamState($team)->getState($player) === MemberState::ALIVE();
+		return $this->getTeamState($team)->getState($player) === MemberState::ALIVE;
 	}
 
 	public function setPlayerState(Player $player, MemberState $state): void {

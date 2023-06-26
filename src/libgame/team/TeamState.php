@@ -21,7 +21,7 @@ use function array_keys;
 class TeamState {
 
 	/**
-	 * @param array<MemberState> $memberStates
+	 * @param array<string, MemberState> $memberStates
 	 */
 	public function __construct(protected int $teamId, protected array $memberStates) {}
 
@@ -30,7 +30,7 @@ class TeamState {
 			teamId: $team->getId(),
 			memberStates: array_fill_keys(
 				keys: array_keys($team->getMembers()),
-				value: MemberState::ALIVE()
+				value: MemberState::ALIVE
 			)
 		);
 	}
@@ -66,12 +66,7 @@ class TeamState {
 	}
 
 	public function isAlive(): bool {
-		foreach ($this->memberStates as $state) {
-			if ($state->equals(MemberState::ALIVE())) {
-				return true;
-			}
-		}
-		return false;
+		return in_array(MemberState::ALIVE, $this->memberStates, true);
 	}
 
 }

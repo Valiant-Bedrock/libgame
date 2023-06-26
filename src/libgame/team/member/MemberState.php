@@ -12,17 +12,7 @@ declare(strict_types=1);
 
 namespace libgame\team\member;
 
-use pocketmine\utils\EnumTrait;
-
-/**
- * @method static MemberState ALIVE()
- * @method static MemberState DEAD()
- */
-class MemberState {
-	use EnumTrait;
-
-	protected static function setup(): void {
-		self::register(new MemberState("ALIVE"));
-		self::register(new MemberState("DEAD"));
-	}
+enum MemberState: string {
+	case ALIVE = "alive";
+	case DEAD = "dead";
 }
