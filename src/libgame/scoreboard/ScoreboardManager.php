@@ -13,20 +13,17 @@ declare(strict_types=1);
 namespace libgame\scoreboard;
 
 use libgame\game\Game;
-use libgame\game\GameTrait;
 use libgame\interfaces\Updatable;
 use libscoreboard\Scoreboard;
 use LogicException;
 use pocketmine\player\Player;
 
 class ScoreboardManager implements Updatable {
-	use GameTrait;
 
 	/** @var array<string, Scoreboard> */
 	protected array $scoreboards = [];
 
-	public function __construct(Game $game, protected string $title) {
-		$this->setGame($game);
+	public function __construct(protected string $title) {
 	}
 
 	/**
