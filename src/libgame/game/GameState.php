@@ -12,29 +12,17 @@ declare(strict_types=1);
 
 namespace libgame\game;
 
-use pocketmine\utils\EnumTrait;
-
-/**
- * @method static GameState WAITING()
- * @method static GameState STARTING()
- * @method static GameState IN_GAME()
- * @method static GameState POSTGAME()
- */
-class GameState {
-	use EnumTrait;
-
-	protected static function setup(): void {
-		self::register(new GameState("waiting"));
-		self::register(new GameState("starting"));
-		self::register(new GameState("in_game"));
-		self::register(new GameState("postgame"));
-	}
+enum GameState {
+	case WAITING;
+	case STARTING;
+	case IN_GAME;
+	case POSTGAME;
 
 	public function getNextState(): ?GameState {
-		return match ($this->id()) {
-			GameState::WAITING()->id() => GameState::STARTING(),
-			GameState::STARTING()->id() => GameState::IN_GAME(),
-			GameState::IN_GAME()->id() => GameState::POSTGAME(),
+		return match ($this) {
+			self::WAITING => self::STARTING,
+			self::STARTING => self::IN_GAME,
+			self::IN_GAME => self::POSTGAME,
 			default => null
 		};
 	}
