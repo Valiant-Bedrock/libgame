@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace libgame\team;
 
 use libgame\game\Game;
-use libgame\game\GameTrait;
 use libgame\team\member\MemberState;
 use libgame\utilities\Utilities;
 use pocketmine\player\Player;
@@ -22,18 +21,23 @@ use Ramsey\Uuid\UuidInterface;
 use function array_filter;
 use function array_merge;
 
+
 class TeamManager
 {
-	use GameTrait;
-
 	protected int $teamCounter = 0;
-	/** @var array<Team> */
+	/** @var array<int, Team> */
 	protected array $teams = [];
-	/** @var array<TeamState> */
+	/** @var array<int, TeamState> */
 	protected array $states = [];
 
-	public function __construct(Game $game, protected TeamMode $mode) {
-		$this->setGame($game);
+	public function __construct(
+		public readonly Game $game,
+		protected TeamMode $mode
+	) {
+	}
+
+	public function getGame(): Game {
+		return $this->game;
 	}
 
 	/**
@@ -146,7 +150,7 @@ class TeamManager
 	}
 
 	public function getTeamState(Team $team): TeamState {
-		return $this->states[$team->getId()];
+		return $this->states[$team->getId()] ?? throw new AssumptionFailedError("Team state not found");
 	}
 
 	public function getPlayerState(Player $player): ?MemberState {
