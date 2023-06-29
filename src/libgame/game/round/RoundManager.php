@@ -17,23 +17,21 @@ use libgame\team\Team;
 use function array_key_first;
 use function count;
 abstract class RoundManager {
+	protected const DEFAULT_COUNTDOWN_LENGTH = 10;
 
-	public const COUNTDOWN_LENGTH = 10;
-
-	/** @var array<Round> */
+	/** @var list<Round> */
 	protected array $past = [];
 	protected Round $current;
 
 	/** @var array<int, int> */
 	protected array $scores = [];
+	protected RoundState $state = RoundState::PREROUND;
 
-	protected int $roundCountdown = self::COUNTDOWN_LENGTH;
-
-	protected RoundState $state;
-
-	public function __construct(protected RoundBasedGame $game) {
-		$this->current = new Round(number: 1);
-		$this->state = RoundState::PREROUND();
+	public function __construct(
+		protected RoundBasedGame $game,
+		protected int $roundCountdown = self::DEFAULT_COUNTDOWN_LENGTH
+	) {
+		$this->initiateNewRound();
 	}
 
 	public function getGame(): RoundBasedGame {
@@ -66,9 +64,16 @@ abstract class RoundManager {
 	}
 
 	/**
+	 * Automatically sets the current round to the next round.
+	 */
+	public function initiateNewRound(): void {
+		$this->current = new Round(number: count($this->past) + 1);
+	}
+
+	/**
 	 * Returns a list of all past rounds.
 	 *
-	 * @return array<Round>
+	 * @return list<Round>
 	 */
 	public function getPastRounds(): array {
 		return $this->past;
