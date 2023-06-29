@@ -13,20 +13,21 @@ declare(strict_types=1);
 namespace libgame\spectator;
 
 use libgame\game\Game;
-use libgame\game\GameTrait;
 use pocketmine\player\Player;
 use function array_filter;
 use function array_keys;
 use function array_map;
 
 class SpectatorManager {
-	use GameTrait;
 
 	/** @var array<string, bool> */
 	protected array $spectators = [];
 
-	public function __construct(Game $game) {
-		$this->setGame($game);
+	public function __construct(protected readonly Game $game) {
+	}
+
+	public function getGame(): Game {
+		return $this->game;
 	}
 
 	public function add(Player $player): void {
