@@ -22,7 +22,6 @@ use libgame\team\Team;
 use libgame\team\TeamManager;
 use libgame\team\TeamMode;
 use libgame\utilities\DeployableClosure;
-use libgame\utilities\GameBaseTrait;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
@@ -34,14 +33,13 @@ use function array_keys;
 use function array_map;
 
 abstract class Game {
-	use GameBaseTrait;
 
 	protected PrefixedLogger $logger;
 
 	protected DeployableClosure $heartbeat;
 
-	protected GameState $state;
-	/** @var array<GameStateHandler> */
+	protected GameState $state = GameState::WAITING;
+	/** @var array<key-of<GameState>, GameStateHandler> */
 	protected array $stateHandlers = [];
 	protected int $currentStateTime = 0;
 
@@ -66,29 +64,25 @@ abstract class Game {
 	 * @param int $heartbeatPeriod - The number of ticks between each heartbeat
 	 */
 	public function __construct(
-		GameBase $plugin,
-		protected string $uniqueId,
+		protected readonly GameBase $plugin,
+		protected readonly string $uniqueId,
 		protected Arena $arena,
 		protected TeamMode $teamMode,
 		protected string $title,
 		protected int $heartbeatPeriod = 20
 	)
 	{
-		$this->setPlugin($plugin);
 		$this->logger = new PrefixedLogger(delegate: $plugin->getLogger(), prefix: "Game $this->uniqueId");
 		$this->heartbeat = new DeployableClosure($this->tick(...), $plugin->getScheduler());
 		// Setups the state handlers
-		$this->stateHandlers = [
-			GameState::WAITING()->id() => $this->setupWaitingStateHandler($this),
-			GameState::STARTING()->id() => $this->setupStartingStateHandler($this),
-			GameState::IN_GAME()->id() => $this->setupInGameStateHandler($this),
-			GameState::POSTGAME()->id() => $this->setupPostGameStateHandler($this),
-		];
+		$this->setStateHandler(GameState::WAITING, $this->setupWaitingStateHandler(...));
+		$this->setStateHandler(GameState::STARTING, $this->setupStartingStateHandler(...));
+		$this->setStateHandler(GameState::IN_GAME, $this->setupInGameStateHandler(...));
+		$this->setStateHandler(GameState::POSTGAME, $this->setupPostGameStateHandler(...));
 		// Sets the initial state
-		$this->state = GameState::WAITING();
-		$this->setState(GameState::WAITING());
+		$this->setState(GameState::WAITING);
 
-		$this->scoreboardManager = new ScoreboardManager(game: $this, title: $title);
+		$this->scoreboardManager = new ScoreboardManager(title: $title);
 		$this->spectatorManager = new SpectatorManager(game: $this);
 
 		$this->teamManager = new TeamManager(game: $this, mode: $teamMode);
@@ -107,11 +101,15 @@ abstract class Game {
 		return TextFormat::MINECOIN_GOLD . "Game > ";
 	}
 
+	public function getPlugin(): GameBase {
+		return $this->plugin;
+	}
+
 	/**
 	 * A simple getter to reduce extraneous call chaining (e.g., $this->getPlugin()->getServer()->getX()).
 	 */
 	public function getServer(): Server {
-		return $this->getPlugin()->getServer();
+		return $this->plugin->getServer();
 	}
 
 	public function getUniqueId(): string {
@@ -175,10 +173,17 @@ abstract class Game {
 	}
 
 	/**
+	 * @param Closure(Game): GameStateHandler $stateHandler
+	 */
+	private function setStateHandler(GameState $state, Closure $stateHandler): void {
+		$this->stateHandlers[$state->name] = $stateHandler($this);
+	}
+
+	/**
 	 * Returns the state handler for the passed state.
 	 */
 	protected function getStateHandler(GameState $state): GameStateHandler {
-		return $this->stateHandlers[$state->id()] ?? throw new AssumptionFailedError("No handler for state {$state->name()}");
+		return $this->stateHandlers[$state->name] ?? throw new AssumptionFailedError("No handler for state $state->name");
 	}
 
 	protected function getCurrentStateHandler(): GameStateHandler {
@@ -193,22 +198,22 @@ abstract class Game {
 	}
 
 	/**
-	 * This abstract method is the game state handler behind the game state {@link GameState::WAITING()}.
+	 * This abstract method is the game state handler behind the game state {@link GameState::WAITING}.
 	 */
 	public abstract function setupWaitingStateHandler(Game $game): GameStateHandler;
 
 	/**
-	 * This abstract method is the game state handler behind the game state {@link GameState::COUNTDOWN()}.
+	 * This abstract method is the game state handler behind the game state {@link GameState::STARTING}.
 	 */
 	public abstract function setupStartingStateHandler(Game $game): GameStateHandler;
 
 	/**
-	 * This abstract method is the game state handler behind the game state {@link GameState::IN_GAME()}.
+	 * This abstract method is the game state handler behind the game state {@link GameState::IN_GAME}.
 	 */
 	public abstract function setupInGameStateHandler(Game $game): GameStateHandler;
 
 	/**
-	 * This abstract method is the game state handler behind the game state {@link GameState::POSTGAME()}.
+	 * This abstract method is the game state handler behind the game state {@link GameState::POSTGAME}.
 	 */
 	public abstract function setupPostGameStateHandler(Game $game): GameStateHandler;
 
