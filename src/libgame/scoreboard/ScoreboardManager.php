@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace libgame\scoreboard;
 
-use libgame\game\Game;
 use libgame\interfaces\Updatable;
 use libscoreboard\Scoreboard;
 use LogicException;

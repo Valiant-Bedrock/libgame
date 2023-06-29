@@ -21,7 +21,6 @@ use Ramsey\Uuid\UuidInterface;
 use function array_filter;
 use function array_merge;
 
-
 class TeamManager
 {
 	protected int $teamCounter = 0;
