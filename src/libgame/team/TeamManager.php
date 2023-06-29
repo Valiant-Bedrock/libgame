@@ -220,14 +220,13 @@ class TeamManager
 	}
 
 	/**
-	 * This method will generate team information like an ID and a name.
-	 *
-	 * @return array{int, string} - Returns an array with the shape {id: int, color: string}
+	 * Generates a new team ID and a random color.
+	 * @return array{id: int, color: string}
 	 */
 	public function generateTeamData(): array {
 		return [
-			++$this->teamCounter,
-			Utilities::getRandomColor(),
+			"id" => ++$this->teamCounter,
+			"color" => Utilities::getRandomColor(),
 		];
 	}
 
