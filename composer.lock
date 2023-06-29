@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "837cfbfb656f0fbeeae83800de2684d2",
+    "content-hash": "217d34ccc843193ea9e6cc552487da3d",
     "packages": [
         {
             "name": "sylvrs/libmarshal",
@@ -55,16 +55,16 @@
         },
         {
             "name": "valiant-bedrock/libscoreboard",
-            "version": "dev-master",
+            "version": "dev-legacy/pm4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Valiant-Bedrock/libscoreboard.git",
-                "reference": "19465f34212652c0167fc29756b42d67dbecf0fe"
+                "reference": "bb93848d210eba1ba1695f3b54cca44ee7acb482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Valiant-Bedrock/libscoreboard/zipball/19465f34212652c0167fc29756b42d67dbecf0fe",
-                "reference": "19465f34212652c0167fc29756b42d67dbecf0fe",
+                "url": "https://api.github.com/repos/Valiant-Bedrock/libscoreboard/zipball/bb93848d210eba1ba1695f3b54cca44ee7acb482",
+                "reference": "bb93848d210eba1ba1695f3b54cca44ee7acb482",
                 "shasum": ""
             },
             "require-dev": {
@@ -72,7 +72,6 @@
                 "pocketmine/bedrock-protocol": ">=9.0.0+bedrock-1.18.30",
                 "pocketmine/pocketmine-mp": "dev-legacy/pm4"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -95,10 +94,10 @@
             ],
             "description": "A small scoreboard library built for PocketMine-MP",
             "support": {
-                "source": "https://github.com/Valiant-Bedrock/libscoreboard/tree/master",
+                "source": "https://github.com/Valiant-Bedrock/libscoreboard/tree/legacy/pm4",
                 "issues": "https://github.com/Valiant-Bedrock/libscoreboard/issues"
             },
-            "time": "2023-06-25T20:14:44+00:00"
+            "time": "2023-06-26T21:46:10+00:00"
         }
     ],
     "packages-dev": [
@@ -672,12 +671,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "efff2c0d016f00c90fdfde49be74987c99c1baa8"
+                "reference": "30e140df537fd612df0763c77a637cbd729a8b69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/efff2c0d016f00c90fdfde49be74987c99c1baa8",
-                "reference": "efff2c0d016f00c90fdfde49be74987c99c1baa8",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/30e140df537fd612df0763c77a637cbd729a8b69",
+                "reference": "30e140df537fd612df0763c77a637cbd729a8b69",
                 "shasum": ""
             },
             "require": {
@@ -761,7 +760,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-25T18:06:32+00:00"
+            "time": "2023-06-29T15:16:42+00:00"
         },
         {
             "name": "nethergamesmc/bedrock-data",
@@ -2061,12 +2060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "022f5368daf850addc61eb26575d756fb8eb380a"
+                "reference": "84a26bff4c2f3f886c3ce083f9b632fcb314b27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/022f5368daf850addc61eb26575d756fb8eb380a",
-                "reference": "022f5368daf850addc61eb26575d756fb8eb380a",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/84a26bff4c2f3f886c3ce083f9b632fcb314b27c",
+                "reference": "84a26bff4c2f3f886c3ce083f9b632fcb314b27c",
                 "shasum": ""
             },
             "require": {
@@ -2121,7 +2120,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-25T17:45:51+00:00"
+            "time": "2023-06-28T04:54:58+00:00"
         },
         {
             "name": "symfony/console",
@@ -3536,6 +3535,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "valiant-bedrock/libscoreboard": 20,
         "phpstan/phpstan": 20,
         "pocketmine/pocketmine-mp": 20
     },
