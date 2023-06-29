@@ -13,23 +13,20 @@ declare(strict_types=1);
 namespace libgame\game;
 
 use libgame\GameBase;
-use libgame\utilities\GameBaseTrait;
 use pocketmine\player\Player;
 use pocketmine\world\World;
 use function array_filter;
 
 class GameManager {
-	use GameBaseTrait;
 
 	/** @var array<string, Game> */
 	protected array $games = [];
 
-	public function __construct(GameBase $plugin) {
-		$this->setPlugin($plugin);
+	public function __construct(protected readonly GameBase $plugin) {
 	}
 
 	/**
-	 * Adds a game to the manager.
+	 * Adds a game to the manager
 	 */
 	public function add(Game $game): void {
 		$this->games[$game->getUniqueId()] = $game;
@@ -62,7 +59,7 @@ class GameManager {
 	public function getFreeGames(): array {
 		return array_filter(
 			array: $this->getAll(),
-			callback: fn(Game $game) => $game->getState()->equals(GameState::WAITING())
+			callback: fn(Game $game) => $game->getState() === GameState::WAITING
 		);
 	}
 

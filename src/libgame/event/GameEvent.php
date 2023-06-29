@@ -13,13 +13,14 @@ declare(strict_types=1);
 namespace libgame\event;
 
 use libgame\game\Game;
-use libgame\game\GameTrait;
 use pocketmine\event\Event;
 
 abstract class GameEvent extends Event {
-	use GameTrait;
 
-	public function __construct(Game $game) {
-		$this->setGame($game);
+	public function __construct(protected readonly Game $game) {
+	}
+
+	public function getGame(): Game {
+		return $this->game;
 	}
 }
