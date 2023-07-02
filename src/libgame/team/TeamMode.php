@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace libgame\team;
 
+use InvalidArgumentException;
 use pocketmine\utils\EnumTrait;
 use function strtolower;
 
@@ -66,5 +67,15 @@ class TeamMode {
 
 	public function getMaxPlayerCount(): int {
 		return $this->maxPlayerCount;
+	}
+
+	public static function fromString(string $name): TeamMode {
+		try {
+			/** @var TeamMode $mode */
+			$mode = self::_registryFromString($name);
+			return $mode;
+		} catch (InvalidArgumentException) {
+			return self::$formattedNameMappings[strtolower($name)] ?? throw new InvalidArgumentException("Invalid team mode $name");
+		}
 	}
 }
