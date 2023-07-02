@@ -279,7 +279,6 @@ abstract class Game {
 
 	/**
 	 * @param Closure(Player): void $closure
-	 * @return void
 	 */
 	public function executeOnPlayers(Closure $closure): void {
 		foreach ($this->getTeamManager()->getAll() as $team) {
