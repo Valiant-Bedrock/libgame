@@ -67,8 +67,4 @@ class TeamMode {
 	public function getMaxPlayerCount(): int {
 		return $this->maxPlayerCount;
 	}
-
-	public static function fromString(string $name): TeamMode {
-		return self::$formattedNameMappings[strtolower($name)];
-	}
 }
