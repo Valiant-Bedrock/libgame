@@ -10,9 +10,8 @@
  */
 declare(strict_types=1);
 
-namespace libgame\scoreboard;
+namespace libgame;
 
-use libgame\interfaces\Updatable;
 use libscoreboard\Scoreboard;
 use LogicException;
 use pocketmine\player\Player;
@@ -70,6 +69,13 @@ class ScoreboardManager implements Updatable {
 			}
 
 			$scoreboard->update();
+		}
+	}
+
+	public function finish(): void {
+		foreach ($this->getAll() as $key => $scoreboard) {
+			$scoreboard->remove();
+			unset($this->scoreboards[$key]);
 		}
 	}
 }

@@ -10,7 +10,7 @@
  */
 declare(strict_types=1);
 
-namespace libgame\interfaces;
+namespace libgame;
 
 interface Updatable {
 

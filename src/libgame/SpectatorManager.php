@@ -10,7 +10,7 @@
  */
 declare(strict_types=1);
 
-namespace libgame\spectator;
+namespace libgame;
 
 use libgame\game\Game;
 use pocketmine\player\Player;
@@ -52,5 +52,9 @@ class SpectatorManager {
 				array: array_keys($this->spectators)
 			)
 		);
+	}
+
+	public function finish(): void {
+		$this->spectators = [];
 	}
 }

@@ -18,8 +18,8 @@ use libgame\event\GameStateChangeEvent;
 use libgame\GameBase;
 use libgame\handler\EventHandler;
 use libgame\handler\GameEventHandler;
-use libgame\scoreboard\ScoreboardManager;
-use libgame\spectator\SpectatorManager;
+use libgame\ScoreboardManager;
+use libgame\SpectatorManager;
 use libgame\team\Team;
 use libgame\team\TeamManager;
 use libgame\team\TeamMode;
@@ -366,6 +366,26 @@ abstract class Game {
 	/**
 	 * This method is called when a game is over and needs to be cleaned up.
 	 */
-	public abstract function finish(): void;
+	public function finish(): void {
+		$this->handleFinish();
+		$this->teamManager->finish();
+		$this->unassociatedPlayers = [];
+		$this->spectatorManager->finish();
+		$this->scoreboardManager->finish();
+		$this->heartbeat->cancel();
+		// clean up event handlers
+		if ($this->eventHandler->isRegistered()) {
+			$this->eventHandler->unregister();
+		}
+		foreach ($this->stateEventHandlers as $handlers) {
+			foreach ($handlers as $handler) {
+				if ($handler->isRegistered()) {
+					$handler->unregister();
+				}
+			}
+		}
+	}
+
+	protected abstract function handleFinish(): void;
 
 }

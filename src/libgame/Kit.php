@@ -10,7 +10,7 @@
  */
 declare(strict_types=1);
 
-namespace libgame\kit;
+namespace libgame;
 
 use libMarshal\MarshalTrait;
 use pocketmine\item\Armor;

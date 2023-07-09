@@ -234,4 +234,10 @@ class TeamManager {
 	public function checkOnTeams(Player $firstPlayer, Player $secondPlayer): bool {
 		return $this->hasTeam($firstPlayer) && $this->hasTeam($secondPlayer) && $this->getTeam($firstPlayer) === $this->getTeam($secondPlayer);
 	}
+
+	public function finish(): void {
+		$this->teams = [];
+		$this->states = [];
+		$this->teamCounter = 0;
+	}
 }
