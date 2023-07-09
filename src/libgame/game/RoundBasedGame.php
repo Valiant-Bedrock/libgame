@@ -15,6 +15,7 @@ namespace libgame\game;
 use libgame\arena\Arena;
 use libgame\game\round\RoundManager;
 use libgame\GameBase;
+use libgame\handler\GameEventHandler;
 use libgame\team\TeamMode;
 
 abstract class RoundBasedGame extends Game {
@@ -26,9 +27,10 @@ abstract class RoundBasedGame extends Game {
 		protected RoundManager $roundManager,
 		TeamMode $teamMode,
 		string $title,
+		GameEventHandler $eventHandler,
 		int $heartbeatPeriod = 20
 	) {
-		parent::__construct($plugin, $uniqueId, $arena, $teamMode, $title, $heartbeatPeriod);
+		parent::__construct($plugin, $uniqueId, $arena, $teamMode, $title, $eventHandler, $heartbeatPeriod);
 	}
 
 	public function getRoundManager(): RoundManager {

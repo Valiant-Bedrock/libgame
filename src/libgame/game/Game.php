@@ -16,6 +16,8 @@ use Closure;
 use libgame\arena\Arena;
 use libgame\event\GameStateChangeEvent;
 use libgame\GameBase;
+use libgame\handler\EventHandler;
+use libgame\handler\GameEventHandler;
 use libgame\scoreboard\ScoreboardManager;
 use libgame\spectator\SpectatorManager;
 use libgame\team\Team;
@@ -41,6 +43,9 @@ abstract class Game {
 	protected GameState $state = GameState::WAITING;
 	/** @var array<key-of<GameState>, GameStateHandler> */
 	protected array $stateHandlers = [];
+
+	/** @var array<key-of<GameState>, EventHandler[]> */
+	protected array $stateEventHandlers = [];
 	protected int $currentStateTime = 0;
 
 	protected ScoreboardManager $scoreboardManager;
@@ -68,6 +73,7 @@ abstract class Game {
 		protected Arena $arena,
 		protected TeamMode $teamMode,
 		protected string $title,
+		protected GameEventHandler $eventHandler,
 		protected int $heartbeatPeriod = 20
 	)
 	{
@@ -143,10 +149,20 @@ abstract class Game {
 		$currentStateHandler = $this->getStateHandler($this->state);
 		$currentStateHandler->handleFinish();
 
+		// Unregister old event handlers
+		$currentEventHandlers = $this->getEventHandlers($this->state);
+		foreach ($currentEventHandlers as $eventHandler) {
+			$eventHandler->unregister();
+		}
+
 		$this->state = $state;
 		// Grabs the new state handler and sets it up
 		$newStateHandler = $this->getStateHandler($state);
 		$newStateHandler->handleSetup();
+		// Setup new event handlers
+		foreach ($this->getEventHandlers($state) as $eventHandler) {
+			$eventHandler->register($this->plugin);
+		}
 		$this->currentStateTime = 0;
 	}
 
@@ -215,6 +231,18 @@ abstract class Game {
 	 * This abstract method is the game state handler behind the game state {@link GameState::POSTGAME}.
 	 */
 	public abstract function setupPostGameStateHandler(Game $game): GameStateHandler;
+
+	public function registerEventHandler(GameState $state, EventHandler $handler): void {
+		$this->stateEventHandlers[$state->name] ??= [];
+		$this->stateEventHandlers[$state->name][] = $handler;
+	}
+
+	/**
+	 * @return EventHandler[]
+	 */
+	private function getEventHandlers(GameState $state): array {
+		return $this->stateEventHandlers[$state->name] ?? [];
+	}
 
 	public function isUnassociatedPlayer(Player $player): bool {
 		return isset($this->unassociatedPlayers[$player->getUniqueId()->getBytes()]);
