@@ -15,12 +15,9 @@ namespace libgame\stats;
 use libgame\GameBase;
 use pocketmine\player\Player;
 
-/**
- * @template TStats of PlayerStats
- */
 abstract class StatsManager {
 
-	/** @var array<string, TStats> */
+	/** @var array<string, PlayerStats> */
 	protected array $stats = [];
 
 	public function __construct(public readonly GameBase $plugin) {
@@ -31,15 +28,12 @@ abstract class StatsManager {
 	}
 
 	/**
-	 * @return array<string, TStats>
+	 * @return array<string, PlayerStats>
 	 */
 	public function getStats(): array {
 		return $this->stats;
 	}
 
-	/**
-	 * @param TStats $stats
-	 */
 	public function add(Player $player, PlayerStats $stats): void {
 		$this->stats[$player->getXuid()] = $stats;
 	}

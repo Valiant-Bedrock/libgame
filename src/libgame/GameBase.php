@@ -24,13 +24,12 @@ abstract class GameBase extends PluginBase {
 
 	protected ArenaManager $arenaManager;
 	protected GameManager $gameManager;
-
 	protected StatsManager $statsManager;
 
 	protected function onLoad(): void {
 		$this->arenaManager = $this->setupArenaManager();
 		$this->gameManager = new GameManager($this);
-		$this->statsManager = new StatsManager($this);
+		$this->statsManager = $this->setupStatsManager();
 	}
 
 	public function getGameManager(): GameManager {
@@ -38,6 +37,8 @@ abstract class GameBase extends PluginBase {
 	}
 
 	protected abstract function setupArenaManager(): ArenaManager;
+
+	protected abstract function setupStatsManager(): StatsManager;
 
 	public function getArenaManager(): ArenaManager {
 		return $this->arenaManager;
