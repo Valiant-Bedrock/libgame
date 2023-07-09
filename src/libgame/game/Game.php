@@ -239,6 +239,10 @@ abstract class Game {
 	public function registerEventHandler(GameState $state, EventHandler $handler): void {
 		$this->stateEventHandlers[$state->name] ??= [];
 		$this->stateEventHandlers[$state->name][] = $handler;
+		// register the handler if the game is already in the state
+		if ($this->state === $state) {
+			$handler->register($this->plugin);
+		}
 	}
 
 	/**
