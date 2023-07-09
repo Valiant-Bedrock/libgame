@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "217d34ccc843193ea9e6cc552487da3d",
+    "content-hash": "259fd6028691f1a9b10fe5689f779e8c",
     "packages": [
         {
             "name": "sylvrs/libmarshal",
@@ -514,16 +514,16 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "3.0.x-dev",
+            "version": "3.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "84a527db05647743d50373e0ec53a152f2cde568"
+                "reference": "0d54c073afb397d5896df60cc34170cf37dfad5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/84a527db05647743d50373e0ec53a152f2cde568",
-                "reference": "84a527db05647743d50373e0ec53a152f2cde568",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/0d54c073afb397d5896df60cc34170cf37dfad5e",
+                "reference": "0d54c073afb397d5896df60cc34170cf37dfad5e",
                 "shasum": ""
             },
             "require": {
@@ -571,7 +571,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/lexer/issues",
-                "source": "https://github.com/doctrine/lexer/tree/3.0.x"
+                "source": "https://github.com/doctrine/lexer/tree/3.1.x"
             },
             "funding": [
                 {
@@ -587,7 +587,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-15T16:57:16+00:00"
+            "time": "2023-07-05T07:23:35+00:00"
         },
         {
             "name": "fgrosse/phpasn1",
@@ -671,12 +671,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "30e140df537fd612df0763c77a637cbd729a8b69"
+                "reference": "7d34e6925f9a249a78178890061b6f4955c7a773"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/30e140df537fd612df0763c77a637cbd729a8b69",
-                "reference": "30e140df537fd612df0763c77a637cbd729a8b69",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/7d34e6925f9a249a78178890061b6f4955c7a773",
+                "reference": "7d34e6925f9a249a78178890061b6f4955c7a773",
                 "shasum": ""
             },
             "require": {
@@ -700,6 +700,7 @@
                 "symfony/stopwatch": "^5.4 || ^6.0"
             },
             "require-dev": {
+                "facile-it/paraunit": "^1.3 || ^2.0",
                 "justinrainbow/json-schema": "^5.2",
                 "keradus/cli-executor": "^2.0",
                 "mikey179/vfsstream": "^1.6.11",
@@ -760,7 +761,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-29T15:16:42+00:00"
+            "time": "2023-07-08T23:21:08+00:00"
         },
         {
             "name": "nethergamesmc/bedrock-data",
@@ -768,12 +769,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NetherGamesMC/BedrockData.git",
-                "reference": "7ceeea5943860c819feb901dc900e9b4001f97cd"
+                "reference": "cd5044ec0558f8a65eae85446703c325536896e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NetherGamesMC/BedrockData/zipball/7ceeea5943860c819feb901dc900e9b4001f97cd",
-                "reference": "7ceeea5943860c819feb901dc900e9b4001f97cd",
+                "url": "https://api.github.com/repos/NetherGamesMC/BedrockData/zipball/cd5044ec0558f8a65eae85446703c325536896e0",
+                "reference": "cd5044ec0558f8a65eae85446703c325536896e0",
                 "shasum": ""
             },
             "default-branch": true,
@@ -785,7 +786,7 @@
             "support": {
                 "source": "https://github.com/NetherGamesMC/BedrockData/tree/master"
             },
-            "time": "2023-06-07T19:56:57+00:00"
+            "time": "2023-07-01T11:58:24+00:00"
         },
         {
             "name": "nethergamesmc/bedrock-protocol",
@@ -845,16 +846,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.6.x-dev",
+            "version": "1.11.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "60d282fe2b853c868b12d0b3192742887c9fcb14"
+                "reference": "784a1ae0972b8fe142ebda7234142bd4e71205e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/60d282fe2b853c868b12d0b3192742887c9fcb14",
-                "reference": "60d282fe2b853c868b12d0b3192742887c9fcb14",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/784a1ae0972b8fe142ebda7234142bd4e71205e3",
+                "reference": "784a1ae0972b8fe142ebda7234142bd4e71205e3",
                 "shasum": ""
             },
             "require": {
@@ -863,6 +864,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
+            "default-branch": true,
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -878,9 +880,16 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
             "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.6.x"
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
             },
             "funding": [
                 {
@@ -892,15 +901,11 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/phpstan",
-                    "type": "patreon"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-24T11:29:00+00:00"
+            "time": "2023-07-08T14:22:42+00:00"
         },
         {
             "name": "pocketmine/bedrock-block-upgrade-schema",
@@ -1421,16 +1426,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NetherGamesMC/PocketMine-MP.git",
-                "reference": "2541f28b4e8806ad354f27eca347fea4ca2796aa"
+                "reference": "2786171497ab2cc89f19e17070de2139e61ced5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NetherGamesMC/PocketMine-MP/zipball/2541f28b4e8806ad354f27eca347fea4ca2796aa",
-                "reference": "2541f28b4e8806ad354f27eca347fea4ca2796aa",
+                "url": "https://api.github.com/repos/NetherGamesMC/PocketMine-MP/zipball/2786171497ab2cc89f19e17070de2139e61ced5c",
+                "reference": "2786171497ab2cc89f19e17070de2139e61ced5c",
                 "shasum": ""
             },
             "require": {
-                "adhocore/json-comment": "^1.1",
+                "adhocore/json-comment": "~1.2.0",
                 "composer-runtime-api": "^2.0",
                 "ext-chunkutils2": "^0.3.1",
                 "ext-crypto": "^0.3.1",
@@ -1455,7 +1460,7 @@
                 "ext-yaml": ">=2.0.0",
                 "ext-zip": "*",
                 "ext-zlib": ">=1.2.11",
-                "fgrosse/phpasn1": "^2.3",
+                "fgrosse/phpasn1": "~2.5.0",
                 "nethergamesmc/bedrock-data": "dev-master",
                 "nethergamesmc/bedrock-protocol": "dev-master",
                 "php": "^8.1",
@@ -1476,9 +1481,9 @@
                 "pocketmine/raklib": "^0.14.2",
                 "pocketmine/raklib-ipc": "^0.1.0",
                 "pocketmine/snooze": "^0.3.0",
-                "ramsey/uuid": "^4.1",
-                "symfony/filesystem": "^5.4",
-                "webmozart/path-util": "^2.3"
+                "ramsey/uuid": "~4.7.0",
+                "symfony/filesystem": "~5.4.0",
+                "webmozart/path-util": "~2.3.0"
             },
             "require-dev": {
                 "phpstan/phpstan": "1.10.15",
@@ -1535,7 +1540,7 @@
                     "url": "https://github.com/pmmp/PocketMine-MP#donate"
                 }
             ],
-            "time": "2023-06-20T09:35:56+00:00"
+            "time": "2023-07-01T12:11:34+00:00"
         },
         {
             "name": "pocketmine/raklib",
@@ -1963,16 +1968,16 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.x-dev",
+            "version": "4.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "bef858d57e5ede26bae2e2f2b51b21fd7f6e7590"
+                "reference": "60a4c63ab724854332900504274f6150ff26d286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/bef858d57e5ede26bae2e2f2b51b21fd7f6e7590",
-                "reference": "bef858d57e5ede26bae2e2f2b51b21fd7f6e7590",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/60a4c63ab724854332900504274f6150ff26d286",
+                "reference": "60a4c63ab724854332900504274f6150ff26d286",
                 "shasum": ""
             },
             "require": {
@@ -2013,7 +2018,6 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "captainhook": {
@@ -2040,7 +2044,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.x"
+                "source": "https://github.com/ramsey/uuid/tree/4.7.4"
             },
             "funding": [
                 {
@@ -2052,7 +2056,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-29T22:02:16+00:00"
+            "time": "2023-04-15T23:01:58+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -2060,12 +2064,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "84a26bff4c2f3f886c3ce083f9b632fcb314b27c"
+                "reference": "ce48b1f07567296a5afbb12c79ebb090a8217e92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/84a26bff4c2f3f886c3ce083f9b632fcb314b27c",
-                "reference": "84a26bff4c2f3f886c3ce083f9b632fcb314b27c",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/ce48b1f07567296a5afbb12c79ebb090a8217e92",
+                "reference": "ce48b1f07567296a5afbb12c79ebb090a8217e92",
                 "shasum": ""
             },
             "require": {
@@ -2120,7 +2124,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T04:54:58+00:00"
+            "time": "2023-07-06T09:10:26+00:00"
         },
         {
             "name": "symfony/console",
@@ -2128,12 +2132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7f16bd3b4ae06c1f9c054ab0139d4cd8dc4a09b0"
+                "reference": "52f68e506836a5cced6706520a2afd9574c8cae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7f16bd3b4ae06c1f9c054ab0139d4cd8dc4a09b0",
-                "reference": "7f16bd3b4ae06c1f9c054ab0139d4cd8dc4a09b0",
+                "url": "https://api.github.com/repos/symfony/console/zipball/52f68e506836a5cced6706520a2afd9574c8cae9",
+                "reference": "52f68e506836a5cced6706520a2afd9574c8cae9",
                 "shasum": ""
             },
             "require": {
@@ -2210,7 +2214,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-23T17:06:40+00:00"
+            "time": "2023-07-06T06:58:38+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2286,12 +2290,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "9ebe352542105f5f7186610a83deb18b90fae3d3"
+                "reference": "a246917953f7ebb308b2f7c3c08ad4f9130ef4f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9ebe352542105f5f7186610a83deb18b90fae3d3",
-                "reference": "9ebe352542105f5f7186610a83deb18b90fae3d3",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/a246917953f7ebb308b2f7c3c08ad4f9130ef4f0",
+                "reference": "a246917953f7ebb308b2f7c3c08ad4f9130ef4f0",
                 "shasum": ""
             },
             "require": {
@@ -2358,7 +2362,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-23T16:34:37+00:00"
+            "time": "2023-07-06T06:58:38+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -2507,12 +2511,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "1bb60aa99f06979e6078007a812eb7c5ffc8efc2"
+                "reference": "afcdf975653a53fab032cc693937d5cfadc40315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/1bb60aa99f06979e6078007a812eb7c5ffc8efc2",
-                "reference": "1bb60aa99f06979e6078007a812eb7c5ffc8efc2",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/afcdf975653a53fab032cc693937d5cfadc40315",
+                "reference": "afcdf975653a53fab032cc693937d5cfadc40315",
                 "shasum": ""
             },
             "require": {
@@ -2563,7 +2567,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-23T16:34:37+00:00"
+            "time": "2023-07-06T06:58:38+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -3136,12 +3140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "8741e3ed7fe2e91ec099e02446fb86667a0f1628"
+                "reference": "6ca50e9d1013af2f5d6c454ceebb91cb9ac8504d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/8741e3ed7fe2e91ec099e02446fb86667a0f1628",
-                "reference": "8741e3ed7fe2e91ec099e02446fb86667a0f1628",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6ca50e9d1013af2f5d6c454ceebb91cb9ac8504d",
+                "reference": "6ca50e9d1013af2f5d6c454ceebb91cb9ac8504d",
                 "shasum": ""
             },
             "require": {
@@ -3173,7 +3177,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.3.0-RC1"
+                "source": "https://github.com/symfony/process/tree/6.4"
             },
             "funding": [
                 {
@@ -3189,7 +3193,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-19T08:06:44+00:00"
+            "time": "2023-07-05T09:40:08+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -3342,12 +3346,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "92292507f95a4cca4b0e54cb4eba1be730c8cf7a"
+                "reference": "09c2a386ca509a61348de71c40c844e42570a1d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/92292507f95a4cca4b0e54cb4eba1be730c8cf7a",
-                "reference": "92292507f95a4cca4b0e54cb4eba1be730c8cf7a",
+                "url": "https://api.github.com/repos/symfony/string/zipball/09c2a386ca509a61348de71c40c844e42570a1d8",
+                "reference": "09c2a386ca509a61348de71c40c844e42570a1d8",
                 "shasum": ""
             },
             "require": {
@@ -3420,7 +3424,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-23T18:27:00+00:00"
+            "time": "2023-07-05T13:06:06+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3536,13 +3540,12 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "valiant-bedrock/libscoreboard": 20,
-        "phpstan/phpstan": 20,
         "pocketmine/pocketmine-mp": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1"
+        "php": ">=8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
