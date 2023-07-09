@@ -36,6 +36,10 @@ abstract class EventHandler implements Listener {
 	/** This flag is used to determine if the event handler is registered */
 	private bool $registered = false;
 
+	public function isRegistered(): bool {
+		return $this->registered;
+	}
+
 	/**
 	 * This method gets a list of all compatible events and registers the corresponding event handlers.
 	 */

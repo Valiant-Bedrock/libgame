@@ -152,6 +152,10 @@ abstract class Game {
 		// Unregister old event handlers
 		$currentEventHandlers = $this->getEventHandlers($this->state);
 		foreach ($currentEventHandlers as $eventHandler) {
+			// don't worry about unregistering handlers that aren't registered
+			if (!$eventHandler->isRegistered()) {
+				continue;
+			}
 			$eventHandler->unregister();
 		}
 
