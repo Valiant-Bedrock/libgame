@@ -14,6 +14,7 @@ namespace libgame;
 
 use libgame\arena\ArenaManager;
 use libgame\game\GameManager;
+use libgame\stats\StatsManager;
 use pocketmine\plugin\PluginBase;
 
 /**
@@ -24,9 +25,12 @@ abstract class GameBase extends PluginBase {
 	protected ArenaManager $arenaManager;
 	protected GameManager $gameManager;
 
+	protected StatsManager $statsManager;
+
 	protected function onLoad(): void {
 		$this->arenaManager = $this->setupArenaManager();
 		$this->gameManager = new GameManager($this);
+		$this->statsManager = new StatsManager($this);
 	}
 
 	public function getGameManager(): GameManager {
@@ -37,6 +41,10 @@ abstract class GameBase extends PluginBase {
 
 	public function getArenaManager(): ArenaManager {
 		return $this->arenaManager;
+	}
+
+	public function getStatsManager(): StatsManager {
+		return $this->statsManager;
 	}
 
 }

@@ -44,7 +44,6 @@ abstract class Game {
 	protected int $currentStateTime = 0;
 
 	protected ScoreboardManager $scoreboardManager;
-
 	protected SpectatorManager $spectatorManager;
 
 	/**
