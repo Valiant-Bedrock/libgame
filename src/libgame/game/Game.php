@@ -92,6 +92,7 @@ abstract class Game {
 
 		$this->teamManager = new TeamManager(game: $this, mode: $teamMode);
 
+		$this->eventHandler->register($plugin);
 		$this->heartbeat->deploy(period: $this->heartbeatPeriod);
 	}
 
